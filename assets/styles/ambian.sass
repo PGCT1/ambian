@@ -4,9 +4,60 @@ ambian-app
 	display:block
 	position:relative
 	width:100%
-	max-width:500px
+	max-width:700px
 	height:100%
 	margin:0px auto
-	background-color:white;
+
+	nav.controls
+		display:block
+		text-align:center
+		font-size:32px
+
+		a
+			display:inline-block
+			padding:10px 50px
+			margin:2px
+			margin-bottom:-1px
+			color:black
+
+			&:hover
+				color:#555
+
+	.content
+		padding:15px
+
+		news-feed
+			display:none
+
+			news-article
+				display:block
+				font-size:18px
+				line-height:28px
+
+				&,& h2
+					font-family:$defaultFont
+
+				.publisher-image
+					display:block
+					float:left
+					width:100px
+					margin:10px 10px 10px 0px
+					background:url(http://static.bbci.co.uk/frameworks/barlesque/2.62.2/desktop/3.5/img/blq-blocks_grey_alpha.png)
+					width:100px
+					height:100px
+					background-size:contain
+					background-repeat:no-repeat
+
+				.text
+					display:block
+					overflow:hidden
+
+
+		app-settings
+			display:none
+
+		.active
+			display:block
+
 
 
