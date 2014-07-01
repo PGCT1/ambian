@@ -28,6 +28,12 @@
 
 	});
 
+	ambian.controller('MainNavigationController',function(){
+
+		this.activeIndex = 0;
+
+	});
+
 	ambian.run(function($ionicPlatform){
 
 	  $ionicPlatform.ready(function(){

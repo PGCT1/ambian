@@ -1,22 +1,22 @@
 
-nav.controls
-	a.active(href='#')
-		i.icon.ion-ios7-film
-	a(href='#')
-		i.icon.ion-ios7-gear
+nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 
-.content
-	
-	news-feed.active
+	.controls
+		a.active(href='#')
+			i.icon.ion-ios7-film(ng-class='{"ion-ios7-film-outline":MainNavigationCtrl.activeIndex == 0}' ng-click='MainNavigationCtrl.activeIndex = 0')
+		a(href='#')
+			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex == 1}' ng-click='MainNavigationCtrl.activeIndex = 1')
 
-		news-article
+	.content
+		
+		news-feed(ng-class='{"active":MainNavigationCtrl.activeIndex == 0}')
 
-			.publisher-image
+			news-article
 
-			.text
+				.publisher-image
 
 				h2 Isis taking over places
 
-				article-sample Oscar Pistorius did not have a mental disorder when he killed his girlfriend, a psychological report says as his murder trial resumes....
+				article-sample Oscar Pistorius did not have a mental disorder when he killed his girlfriend...
 
-	app-settings fdsa
+		app-settings(ng-class='{"active":MainNavigationCtrl.activeIndex == 1}') fdsa
