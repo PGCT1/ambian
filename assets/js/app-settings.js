@@ -5,7 +5,26 @@
 
 	appSettings.directive('appSettings',function(){
 
-		return ambianDirectiveWithTemplate('app-settings');
+		var directive = ambianDirectiveWithTemplate('app-settings');
+
+		directive.controller = function(){
+
+			this.feeds = [
+				{
+					name:'World News',
+					free:true
+				},
+				{
+					name:'Celebrity Gossip',
+					free:false
+				}
+			];
+
+		};
+
+		directive.controllerAs = 'AppSettingsCtrl';
+
+		return directive;
 
 	});
 
