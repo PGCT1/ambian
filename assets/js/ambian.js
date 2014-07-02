@@ -1,26 +1,26 @@
-(function(){
+function ambianDirectiveWithTemplate(templateName){
 
-	var ambian = angular.module('ambian',['ionic']);
+	var template = {
+		restrict:'E'
+	};
 
-	function ambianDirectiveWithTemplate(templateName){
+	if(jade.templates && jade.templates[templateName]){
 
-		var template = {
-			restrict:'E'
-		};
+		template.template = jade.templates[templateName];
 
-		if(jade.templates && jade.templates[templateName]){
+	}else{
 
-			template.template = jade.templates[templateName];
-
-		}else{
-
-			template.templateUrl = '/templates/' + templateName;
-
-		}
-
-		return template;
+		template.templateUrl = '/templates/' + templateName;
 
 	}
+
+	return template;
+
+}
+
+(function(){
+
+	var ambian = angular.module('ambian',['ionic','app-settings']);
 
 	ambian.directive('ambianApp',function(){
 
