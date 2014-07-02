@@ -12,11 +12,13 @@
 			this.feeds = [
 				{
 					name:'World News',
-					free:true
+					subscribed:true,
+					active:true
 				},
 				{
 					name:'Celebrity Gossip',
-					free:false
+					subscribed:false,
+					active:false
 				}
 			];
 

@@ -3,5 +3,5 @@
 
 .item.item-checkbox(ng-repeat='feed in AppSettingsCtrl.feeds')
 	label.checkbox
-		input(type='checkbox')
+		input(type='checkbox', ng-checked='feed.active')
 	| {{feed.name}}
