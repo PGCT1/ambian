@@ -9,16 +9,33 @@
 
 		directive.controller = function(){
 
-			this.feeds = [
+			this.subscriptions = [
 				{
+					id:1,
 					name:'World News',
-					subscribed:true,
 					active:true
 				},
 				{
-					name:'Celebrity Gossip',
-					subscribed:false,
+					id:2,
+					name:'Social & Entertainment',
 					active:false
+				}
+			];
+
+			this.speed = 60;
+
+			this.sources = [
+				{
+					name:'Corporate Media',
+					enabled:true
+				},
+				{
+					name:'Government Media',
+					enabled:true
+				},
+				{
+					name:'Social Media',
+					enabled:true
 				}
 			];
 

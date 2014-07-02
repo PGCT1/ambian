@@ -5,7 +5,9 @@ nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 		a.active(href='#', ng-click='MainNavigationCtrl.activeIndex = 0')
 			i.icon.ion-ios7-film(ng-class='{"ion-ios7-film-outline":MainNavigationCtrl.activeIndex == 0}')
 		a(href='#', ng-click='MainNavigationCtrl.activeIndex = 1')
-			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex == 1}')
+			i.icon.ion-ios7-pricetag(ng-class='{"ion-ios7-pricetag-outline":MainNavigationCtrl.activeIndex == 1}')
+		a(href='#', ng-click='MainNavigationCtrl.activeIndex = 2')
+			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex == 2}')
 
 	.content
 		
@@ -19,4 +21,6 @@ nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 
 				article-sample Oscar Pistorius did not have a mental disorder when he killed his girlfriend...
 
-		app-settings(ng-class='{"active":MainNavigationCtrl.activeIndex == 1}')
+		app-store(ng-class='{"active":MainNavigationCtrl.activeIndex == 1}')
+
+		app-settings(ng-class='{"active":MainNavigationCtrl.activeIndex == 2}')

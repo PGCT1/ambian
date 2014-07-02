@@ -1,7 +1,21 @@
 
-.header Feed
+.header Stream
 
-.item.item-checkbox(ng-repeat='feed in AppSettingsCtrl.feeds')
+.item.item-checkbox(ng-repeat='feed in AppSettingsCtrl.subscriptions')
 	label.checkbox
 		input(type='checkbox', ng-checked='feed.active')
 	| {{feed.name}}
+
+.header Speed
+
+.item.range.range-positive
+	i.icon.ion-ios7-bolt-outline
+	input(type='range', name='speed', min='0', max='100', ng-model='AppSettingsCtrl.speed')
+	i.icon.ion-ios7-bolt
+
+.header Sources
+
+.item.item-checkbox(ng-repeat='source in AppSettingsCtrl.sources')
+	label.checkbox
+		input(type='checkbox', ng-checked='source.enabled')
+	| {{source.name}}
