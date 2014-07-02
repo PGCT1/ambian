@@ -2,9 +2,9 @@
 nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 
 	.controls
-		a.active(href='#' ng-click='MainNavigationCtrl.activeIndex = 0')
+		a.active(href='#', ng-click='MainNavigationCtrl.activeIndex = 0')
 			i.icon.ion-ios7-film(ng-class='{"ion-ios7-film-outline":MainNavigationCtrl.activeIndex == 0}')
-		a(href='#' ng-click='MainNavigationCtrl.activeIndex = 1')
+		a(href='#', ng-click='MainNavigationCtrl.activeIndex = 1')
 			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex == 1}')
 
 	.content
