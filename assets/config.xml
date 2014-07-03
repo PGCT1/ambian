@@ -2,14 +2,14 @@
 <widget id="com.projectgemini.ambian" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Ambian</name>
     <description>
-        Hello World sample application that responds to the deviceready event.
+        The World speaks. Listen.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="t1gemini@yandex.ru" href="http://projectgemini.herokuapp.com">
+        Gemini Corp.
     </author>
     <preference name="permissions" value="none" />
     <preference name="phonegap-version" value="3.5.0" />
-    <preference name="orientation" value="default" />
+    <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />

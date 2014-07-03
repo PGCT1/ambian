@@ -1,4 +1,5 @@
 @import "../ionic/scss/ionic"
+@import "theme"
 @import "layout"
 @import "app-settings"
 @import "app-store"
@@ -7,7 +8,7 @@ ambian-app
 	display:block
 	position:relative
 	width:100%
-	max-width:700px
+	max-width:768px
 	height:100%
 	margin:0px auto
 
@@ -16,22 +17,26 @@ ambian-app
 			display:block
 			text-align:center
 			font-size:32px
+			margin:-1px
+			background-color:$primary-highlight
 
 			a
 				display:inline-block
-				padding:10px 30px
+				padding:10px 8%
 				margin:2px
 				margin-bottom:-1px
-				color:black
+				color:white
 
 				&:hover
-					color:#555
+					color:#ddddff
 
 		.content
 
 			news-feed
 				padding:15px
 				display:none
+				max-width:600px
+				margin:auto;
 
 				news-article
 					display:block
