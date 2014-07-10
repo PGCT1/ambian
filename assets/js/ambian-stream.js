@@ -1,5 +1,5 @@
 
-//var SOURCE_STREAM = 'ws://golang-projectgemini.rhcloud.com:8000/json';//'ws://localhost:3000/json'
+//var SOURCE_STREAM = 'ws://echo.websocket.org';//'ws://localhost:3000/json'
 var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 
 (function(){
@@ -12,7 +12,7 @@ var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 
 	var ambianStream = angular.module('ambian-stream',['ambian-notification']);
 
-	ambianStream.directive('ambianStream',function(){
+	ambianStream.directive('ambianStream',function($http){
 
 		var directive = ambianDirectiveWithTemplate('ambian-stream');
 
@@ -77,7 +77,7 @@ var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 					socket.send(JSON.stringify({
 						Password:'your_password',
 						DesiredStreams:{
-							AmbianStreamIds:[1,2],
+							AmbianStreamIds:[1],
 							Sources:{
 								Corporate:true,
 								SocialMedia:true
@@ -102,7 +102,9 @@ var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 					capture.handleStreamTick(notification);
 				};
 
-				socket.onerror = function(e){};
+				socket.onerror = function(e){
+					alert(e);
+				};
 
 				socket.onclose = function(){
 					connectionStatus = 0;
