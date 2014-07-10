@@ -2,7 +2,7 @@
   "name": "ambian-app",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "The World speaks. Listen.",
   "keywords": [],
   "dependencies": {
     "sails": "~0.10.0-rc7",
@@ -33,6 +33,6 @@
     "type": "git",
     "url": "git://github.com/anonymous node/sails user/ambian-app.git"
   },
-  "author": "anonymous node/sails user",
-  "license": ""
+  "author": "PGCT1",
+  "license": "MIT"
 }

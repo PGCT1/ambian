@@ -20,7 +20,7 @@ function ambianDirectiveWithTemplate(templateName){
 
 (function(){
 
-	var ambian = angular.module('ambian',['ionic','app-store','app-settings']);
+	var ambian = angular.module('ambian',['ionic','ambian-stream','app-store','app-settings']);
 
 	ambian.directive('ambianApp',function(){
 
@@ -31,6 +31,8 @@ function ambianDirectiveWithTemplate(templateName){
 	ambian.controller('MainNavigationController',function(){
 
 		this.activeIndex = 0;
+
+		this.iOS = ionic.Platform.isIOS();
 
 	});
 

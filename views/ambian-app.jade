@@ -1,26 +1,19 @@
 
-nav(ng-controller='MainNavigationController as MainNavigationCtrl')
+nav(ng-controller='MainNavigationController as MainNavigationCtrl', ng-switch='MainNavigationCtrl.activeIndex')
 
 	.controls
-		a.active(href='#', ng-click='MainNavigationCtrl.activeIndex = 0')
+		.ios-status-offset(ng-show='MainNavigationCtrl.iOS')
+		button.active(ng-mousedown='MainNavigationCtrl.activeIndex = 0')
 			i.icon.ion-ios7-film(ng-class='{"ion-ios7-film-outline":MainNavigationCtrl.activeIndex != 0}')
-		a(href='#', ng-click='MainNavigationCtrl.activeIndex = 1')
+		button(ng-mousedown='MainNavigationCtrl.activeIndex = 1')
 			i.icon.ion-ios7-pricetag(ng-class='{"ion-ios7-pricetag-outline":MainNavigationCtrl.activeIndex != 1}')
-		a(href='#', ng-click='MainNavigationCtrl.activeIndex = 2')
+		button(ng-mousedown='MainNavigationCtrl.activeIndex = 2')
 			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex != 2}')
 
 	.content
 		
-		news-feed(ng-class='{"active":MainNavigationCtrl.activeIndex == 0}')
+		ambian-stream(ng-switch-when='0')
 
-			news-article
+		app-store(ng-switch-when='1')
 
-				.publisher-image
-
-				h2 Isis taking over places
-
-				article-sample Oscar Pistorius did not have a mental disorder when he killed his girlfriend...
-
-		app-store(ng-class='{"active":MainNavigationCtrl.activeIndex == 1}')
-
-		app-settings(ng-class='{"active":MainNavigationCtrl.activeIndex == 2}')
+		app-settings(ng-switch-when='2')

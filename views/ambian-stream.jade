@@ -1,0 +1,11 @@
+
+connection-management(ng-switch='AmbianStreamCtrl.connectionStatus', ng-init='AmbianStreamCtrl.connect()')
+
+	.discnnected(ng-switch-when='0')
+		h4 Unable to connect to server. Please check your internet connection and try again.
+
+	.connecting(ng-switch-when='1') Connecting...
+
+	.connected(ng-switch-when='2')
+
+		ambian-notification(ng-repeat='notification in AmbianStreamCtrl.notifications')

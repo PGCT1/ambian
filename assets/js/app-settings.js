@@ -30,11 +30,11 @@
 					enabled:true
 				},
 				{
-					name:'Government Media',
+					name:'Social Media',
 					enabled:true
 				},
 				{
-					name:'Social Media',
+					name:'Aggregate',
 					enabled:true
 				}
 			];
