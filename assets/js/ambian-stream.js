@@ -1,11 +1,15 @@
 
-//var SOURCE_STREAM = 'ws://echo.websocket.org';//'ws://localhost:3000/json'
-var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
+//var SOURCE_STREAM = 'ws://echo.websocket.org';
+var SOURCE_STREAM = 'wss://ambianmonitordev-projectgemini.rhcloud.com:8443/json';
+var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
+
+// var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
+// var SOURCE_STREAM_PASSWORD = 'your_password';
 
 (function(){
 
 	var connectionStatus = 1;	// 0 = disconnected, 1 = connecting, 2 = active
-	var maxStreamItemCount = 50;
+	var maxStreamItemCount = 10;
 
 	var socket;
 	var notifications = [];
@@ -45,10 +49,10 @@ var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 			}};
 
 			var capture = this;
-			capture.i = 0;
+			// capture.i = 0;
 
 			// setInterval(function(){
-			// 	if(capture.i > 50)return
+			// 	if(capture.i > 5)return
 			// 	capture.handleStreamTick(notification())
 			// 	capture.i = capture.i + 1;
 			// },1000);
@@ -75,7 +79,7 @@ var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 					$scope.$apply();
 
 					socket.send(JSON.stringify({
-						Password:'your_password',
+						Password:SOURCE_STREAM_PASSWORD,
 						DesiredStreams:{
 							AmbianStreamIds:[1],
 							Sources:{

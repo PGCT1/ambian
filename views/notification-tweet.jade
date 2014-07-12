@@ -1,9 +1,10 @@
 
 img.userProfileImage(ng-src='{{tweet.UserImageUrl}}')
 
-h1.name {{tweet.Username}}
+h1.name
+	a(href='http://twitter.com/{{tweet.Screenname}}', target='_blank') {{tweet.Username}}
 
-p.text {{tweet.Text}}
+p.text(ng-bind-html='tweet.Text')
 
 ul.hashtags
 	li.hashtag(ng-repeat='hashtag in tweet.Hashtags') \#{{hashtag}}&nbsp;

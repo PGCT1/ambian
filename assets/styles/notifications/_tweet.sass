@@ -1,13 +1,42 @@
 
 notification-tweet
+	white-space:nowrap
 
 	img.userProfileImage
-		width:50px
-		float:left
+		display:inline-block
+		width:48px
 		margin-right:5px
+		float:left
+
+		@media(max-width:549px)
+			width:24px
+
+	h1.name
+		display:inline-block
+		vertical-align:top
+		line-height: 47px
+		white-space:nowrap
+		overflow:hidden
+		text-overflow:ellipsis
+
+		@media(max-width:549px)
+			line-height:28px
+			font-size:22px
+			width:240px
+
+		a
+			color:black
+
+			&:hover
+				color:#666666
 
 	p.text
+		white-space:normal
+		padding-top:2px
 		overflow:hidden
+
+		@media(max-width:549px)
+			padding-left:29px
 
 	ul.hashtags
 		text-align:right
