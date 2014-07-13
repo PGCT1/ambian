@@ -8,10 +8,14 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
 (function(){
 
-	var connectionStatus = 1;	// 0 = disconnected, 1 = connecting, 2 = active
+	var connectionStatus = 1;	// 0 = disconnected, 1 = connecting, 2 = active, -1 = waiting for device ready
 	var maxStreamItemCount = 10;
 
 	var socket;
+	var connectionStatus;
+
+	var capture;
+
 	var notifications = [];
 
 	var ambianStream = angular.module('ambian-stream',['ambian-notification']);
@@ -21,10 +25,20 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 		var directive = ambianDirectiveWithTemplate('ambian-stream');
 
 		directive.controller = ['$scope',function($scope){
+			
+			capture = this;
+
+			document.addEventListener('deviceready', function() {
+				connectionStatus = 1;
+				capture.connectionStatus = connectionStatus;
+				capture.connect();
+		  });
 
 			this.notificationLimit = maxStreamItemCount;
 
 			this.notifications = notifications;
+
+			this.connectionStatus = connectionStatus;
 
 			var notification = function(){return {
 				Type:1,
@@ -48,7 +62,6 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 				}
 			}};
 
-			var capture = this;
 			// capture.i = 0;
 
 			// setInterval(function(){
@@ -57,19 +70,17 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 			// 	capture.i = capture.i + 1;
 			// },1000);
 
-			this.connectionStatus = connectionStatus;
-
-			this.lastPost = (new Date()).getTime();
+			capture.lastPost = (new Date()).getTime();
 
 			this.connect = function(){
+
+				capture.connectionStatus = connectionStatus;
 
 				if(connectionStatus == 2){
 					return;
 				}
 
-				capture.socket = new WebSocket(SOURCE_STREAM);
-
-				socket = capture.socket;
+				socket = new WebSocket(SOURCE_STREAM);
 
 				socket.onopen = function(){
 
@@ -101,8 +112,10 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 						capture.lastPost = now;
 					}
 
-					notification = JSON.parse(raw.data);
+					var notification = JSON.parse(raw.data);
+
 					notification.Content = JSON.parse(notification.Content);
+
 					capture.handleStreamTick(notification);
 				};
 
@@ -120,10 +133,10 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
 			this.handleStreamTick = function(notification){
 
-				this.notifications.unshift(notification);
+				capture.notifications.unshift(notification);
 
-				if(this.notifications.length == maxStreamItemCount){
-					this.notifications.pop();
+				if(capture.notifications.length == maxStreamItemCount){
+					capture.notifications.pop();
 				}
 				
 				$scope.$apply();

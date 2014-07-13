@@ -12,6 +12,14 @@
 
 		directive.controller = ['$scope',function($scope){
 
+			if($scope.tweet.textAlreadyParsed){
+				// necessary because this constructor will be called on the same tweet object if 
+				// the user switches tabs and comes back, so we don't want to re-parse the text
+				return;
+			}else{
+				$scope.tweet.textAlreadyParsed = true;
+			}
+
 			// add links in the tweet body
 
 			var urls = $scope.tweet.Text.match(cLinkRegex);
