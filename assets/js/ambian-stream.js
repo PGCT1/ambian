@@ -120,7 +120,7 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 				};
 
 				socket.onerror = function(e){
-					alert(e);
+					alert(JSON.stringify(e));
 				};
 
 				socket.onclose = function(){
