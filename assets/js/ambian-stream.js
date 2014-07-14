@@ -25,7 +25,7 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 		var directive = ambianDirectiveWithTemplate('ambian-stream');
 
 		directive.controller = ['$scope',function($scope){
-			
+
 			capture = this;
 
 			document.addEventListener('deviceready', function() {
@@ -138,7 +138,7 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 				if(capture.notifications.length == maxStreamItemCount){
 					capture.notifications.pop();
 				}
-				
+
 				$scope.$apply();
 
 			}
