@@ -18,6 +18,9 @@ function ambianDirectiveWithTemplate(templateName){
 
 }
 
+
+var MainNavigationController = new function(){};
+
 (function(){
 
 	var ambian = angular.module('ambian',['ionic','ambian-stream','app-store','app-settings']);
@@ -28,7 +31,18 @@ function ambianDirectiveWithTemplate(templateName){
 
 	});
 
-	ambian.controller('MainNavigationController',function(){
+	ambian.controller('MainNavigationController',function($scope){
+
+		var capture = this;
+
+		MainNavigationController.Navigate = function(index){
+
+			if(capture.activeIndex != index){
+				capture.activeIndex = index;
+				$scope.$apply();
+			}
+
+		}
 
 		this.activeIndex = 0;
 

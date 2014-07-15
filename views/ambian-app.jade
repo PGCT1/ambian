@@ -1,13 +1,13 @@
 
 nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 
-	.controls
+	.controls(onselectstart='return false;')
 		.ios-status-offset(ng-show='MainNavigationCtrl.iOS')
-		button.active(ng-mousedown='MainNavigationCtrl.activeIndex = 0')
+		button.active(onmousedown='MainNavigationController.Navigate(0);', ontouchstart='MainNavigationController.Navigate(0);')
 			i.icon.ion-ios7-film(ng-class='{"ion-ios7-film-outline":MainNavigationCtrl.activeIndex != 0}')
-		button(ng-mousedown='MainNavigationCtrl.activeIndex = 1')
+		button(onmousedown='MainNavigationController.Navigate(1);', ontouchstart='MainNavigationController.Navigate(1);')
 			i.icon.ion-ios7-pricetag(ng-class='{"ion-ios7-pricetag-outline":MainNavigationCtrl.activeIndex != 1}')
-		button(ng-mousedown='MainNavigationCtrl.activeIndex = 2')
+		button(onmousedown='MainNavigationController.Navigate(2);', ontouchstart='MainNavigationController.Navigate(2);')
 			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex != 2}')
 
 	.content
