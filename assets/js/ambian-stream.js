@@ -18,7 +18,7 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
 	var notifications = [];
 
-	var ambianStream = angular.module('ambian-stream',['ambian-notification']);
+	var ambianStream = angular.module('ambian-stream',['ionic','ambian-notification']);
 
 	ambianStream.directive('ambianStream',function($http){
 
@@ -27,12 +27,6 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 		directive.controller = ['$scope',function($scope){
 
 			capture = this;
-
-			document.addEventListener('deviceready', function() {
-				connectionStatus = 1;
-				capture.connectionStatus = connectionStatus;
-				capture.connect();
-		  });
 
 			this.notificationLimit = maxStreamItemCount;
 
@@ -142,6 +136,12 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 				$scope.$apply();
 
 			}
+
+			ionic.Platform.ready(function() {
+				connectionStatus = 1;
+				capture.connectionStatus = connectionStatus;
+				capture.connect();
+			});
 
 		}];
 

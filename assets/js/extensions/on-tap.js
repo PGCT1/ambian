@@ -16,7 +16,6 @@
 
         element.on('touchstart',function(event){
           scope.$apply(function(){
-            console.log(scope);
             fn(scope,{$event:event})
           });
         });

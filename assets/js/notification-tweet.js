@@ -13,11 +13,20 @@
 		directive.controller = ['$scope',function($scope){
 
 			if($scope.tweet.textAlreadyParsed){
-				// necessary because this constructor will be called on the same tweet object if 
+				// necessary because this constructor will be called on the same tweet object if
 				// the user switches tabs and comes back, so we don't want to re-parse the text
 				return;
 			}else{
 				$scope.tweet.textAlreadyParsed = true;
+			}
+
+			// first, remove truncated text at the end, since it's almost always
+			// partial links or usernames
+
+			if($scope.tweet.Text.substring($scope.tweet.Text.length-1) == '…'){
+				if($scope.tweet.Text.indexOf(' ') != -1){
+					$scope.tweet.Text = $scope.tweet.Text.substring(0,$scope.tweet.Text.lastIndexOf(' '));
+				}
 			}
 
 			// add links in the tweet body
@@ -26,8 +35,7 @@
 
 			if(urls)
 				for(var i=0;i<urls.length;++i)
-					if($scope.tweet.Text.substring($scope.tweet.Text.length-1) != '…' || $scope.tweet.Text.substring($scope.tweet.Text.length - urls[i].length - 4).indexOf(urls[i]) == -1)
-						$scope.tweet.Text = $scope.tweet.Text.replace(urls[i],'<a href="' + urls[i] + '" target="_blank">link</a>');
+					$scope.tweet.Text = $scope.tweet.Text.replace(urls[i],'<a href="' + urls[i] + '" target="_blank">link</a>');
 
 			// add user references
 
@@ -35,9 +43,8 @@
 
 			if(userReferences)
 				for(var i=0;i<userReferences.length;++i)
-					if($scope.tweet.Text.substring($scope.tweet.Text.length-1) != '…' || $scope.tweet.Text.substring($scope.tweet.Text.length - userReferences[i].length - 4).indexOf(userReferences[i]) == -1)
-						$scope.tweet.Text = $scope.tweet.Text.replace(userReferences[i],'<a href="https://twitter.com/' + userReferences[i].substring(1) + '" target="_blank">' + userReferences[i] + '</a>');
-			
+					$scope.tweet.Text = $scope.tweet.Text.replace(userReferences[i],'<a href="https://twitter.com/' + userReferences[i].substring(1) + '" target="_blank">' + userReferences[i] + '</a>');
+
 		}];
 
 		directive.controllerAs = 'TweetCtrl';
