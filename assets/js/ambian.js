@@ -23,7 +23,7 @@ var MainNavigationController = new function(){};
 
 (function(){
 
-	var ambian = angular.module('ambian',['ionic','ambian-stream','app-store','app-settings']);
+	var ambian = angular.module('ambian',['ionic','onTap','ambian-stream','app-store','app-settings']);
 
 	ambian.directive('ambianApp',function(){
 
