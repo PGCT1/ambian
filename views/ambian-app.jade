@@ -10,10 +10,9 @@ nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 		button(on-tap='MainNavigationCtrl.activeIndex=2')
 			i.icon.ion-ios7-gear(ng-class='{"ion-ios7-gear-outline":MainNavigationCtrl.activeIndex != 2}')
 
-	.content
 
-		ambian-stream(ng-class='{active:MainNavigationCtrl.activeIndex == 0}')
+	ambian-stream(ng-class='{active:MainNavigationCtrl.activeIndex == 0}')
 
-		app-store(ng-class='{active:MainNavigationCtrl.activeIndex == 1}')
+	app-store(ng-class='{active:MainNavigationCtrl.activeIndex == 1}')
 
-		app-settings(ng-class='{active:MainNavigationCtrl.activeIndex == 2}')
+	app-settings(ng-class='{active:MainNavigationCtrl.activeIndex == 2}')

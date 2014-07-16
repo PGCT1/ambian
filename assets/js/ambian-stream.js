@@ -3,8 +3,8 @@
 var SOURCE_STREAM = 'wss://ambianmonitordev-projectgemini.rhcloud.com:8443/json';
 var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
-// var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
-// var SOURCE_STREAM_PASSWORD = 'your_password';
+//  var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
+//  var SOURCE_STREAM_PASSWORD = 'your_password';
 
 (function(){
 
@@ -27,6 +27,8 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 		directive.controller = ['$scope',function($scope){
 
 			capture = this;
+
+			this.paused = false;
 
 			this.notificationLimit = maxStreamItemCount;
 
@@ -72,6 +74,9 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
 				if(connectionStatus == 2){
 					return;
+				}else{
+					connectionStatus = 1;
+					capture.connectionStatus = connectionStatus;
 				}
 
 				socket = new WebSocket(SOURCE_STREAM);
@@ -97,6 +102,10 @@ var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 				};
 
 				socket.onmessage = function(raw){
+
+					if(capture.paused == true){
+						return false;
+					}
 
 					var now = (new Date()).getTime();
 

@@ -3,9 +3,15 @@ connection-management(ng-switch='AmbianStreamCtrl.connectionStatus')
 
 	.disconnected(ng-switch-when='0')
 		h4 Unable to connect to server. Please check your internet connection and try again.
+		button.connect(ng-click='AmbianStreamCtrl.connect()') TRY AGAIN
 
-	.connecting(ng-switch-when='1') Connecting...
+	.connecting(ng-switch-when='1')
+		h4 Connecting...
+		img(src='images/loading.gif')
 
 	.connected(ng-switch-when='2')
 
 		ambian-notification(ng-repeat='notification in AmbianStreamCtrl.notifications')
+
+	button.streamControl.pause(ng-show='AmbianStreamCtrl.connectionStatus == 2 && AmbianStreamCtrl.paused == false', ng-click='AmbianStreamCtrl.paused=true') &#9616;&#9616;
+	button.streamControl.play(ng-show='AmbianStreamCtrl.connectionStatus == 2 && AmbianStreamCtrl.paused == true', ng-click='AmbianStreamCtrl.paused=false') &#9654;
