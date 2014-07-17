@@ -80,18 +80,27 @@ ambian-app
 			position:absolute
 			bottom:10px
 			right:10px
-			padding:10px 19px 9px 14px
 			background: $primary-highlight
 			border: 0px
 			color:white
-			font-size:18px
+			font-size: 26px
+			border-radius: 30px
+			box-shadow: 0px 0px 7px #aaa
 
 			&:hover
 				background-color:lighten($primary-highlight,4%)
 
 			&.play
-				padding:0px 17px 4px 20px
-				font-size:28px
+				padding: 3px 14px 3px 14px
+
+				i
+					margin-right:-4px
+
+			&.pause
+				padding: 3px 16px 3px 15px
+
+				i
+					margin-right:-1px
 
 	app-settings
 		display:none
