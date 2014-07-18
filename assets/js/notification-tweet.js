@@ -25,7 +25,7 @@
 
 			if($scope.tweet.Text.substring($scope.tweet.Text.length-1) == '…'){
 				if($scope.tweet.Text.indexOf(' ') != -1){
-					$scope.tweet.Text = $scope.tweet.Text.substring(0,$scope.tweet.Text.lastIndexOf(' '));
+					$scope.tweet.Text = $scope.tweet.Text.substring(0,$scope.tweet.Text.lastIndexOf(' ')) + '…';
 				}
 			}
 
