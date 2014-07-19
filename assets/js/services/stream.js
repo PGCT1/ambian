@@ -20,15 +20,33 @@ var eConnectionStatus = {
 
 		var socket;
 
+		var capture = {};
+
 		return function(settings,statusCallback,notificationCallback){
 
-			statusCallback(eConnectionStatus.connecting);
+			if(socket){
+				socket.close();
+			}
+
+			// if we have callbacks, store them; we should always have settings
+
+			if(statusCallback){
+				capture.statusCallback = statusCallback;
+			}
+
+			if(notificationCallback){
+				capture.notificationCallback = notificationCallback;
+			}
+
+			//
+
+			capture.statusCallback(eConnectionStatus.connecting);
 
 			socket = new WebSocket(SOURCE_STREAM);
 
 			socket.onopen = function(){
 
-				statusCallback(eConnectionStatus.connected);
+				capture.statusCallback(eConnectionStatus.connected);
 
 				socket.send(JSON.stringify({
 					Password:SOURCE_STREAM_PASSWORD,
@@ -43,7 +61,7 @@ var eConnectionStatus = {
 
 				notification.Content = JSON.parse(notification.Content);
 
-				notificationCallback(notification);
+				capture.notificationCallback(notification);
 			};
 
 			socket.onerror = function(e){
@@ -51,7 +69,7 @@ var eConnectionStatus = {
 			};
 
 			socket.onclose = function(){
-				statusCallback(eConnectionStatus.disconnected);
+				capture.statusCallback(eConnectionStatus.disconnected);
 			};
 
 		}

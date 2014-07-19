@@ -45,6 +45,24 @@
 				for(var i=0;i<userReferences.length;++i)
 					$scope.tweet.Text = $scope.tweet.Text.replace(userReferences[i],'<a href="https://twitter.com/' + userReferences[i].substring(1) + '" target="_blank">' + userReferences[i] + '</a>');
 
+			// remove duplicate hashtags so we don't get ng-repeat complaining
+
+			if($scope.tweet.Hashtags){
+
+				var hashtags = [];
+
+				for(var i=0;i<$scope.tweet.Hashtags.length;++i){
+					if(hashtags.indexOf($scope.tweet.Hashtags[i]) == -1){
+						hashtags.push($scope.tweet.Hashtags[i]);
+					}
+				}
+
+				$scope.tweet.Hashtags = hashtags;
+
+			}
+
+
+
 		}];
 
 		directive.controllerAs = 'TweetCtrl';

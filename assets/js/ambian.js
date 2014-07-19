@@ -18,9 +18,6 @@ function ambianDirectiveWithTemplate(templateName){
 
 }
 
-
-var MainNavigationController = new function(){};
-
 (function(){
 
 	var ambian = angular.module('ambian',['ionic','onTap','notification-stream','app-store','app-settings']);
@@ -35,11 +32,16 @@ var MainNavigationController = new function(){};
 
 		var capture = this;
 
-		MainNavigationController.Navigate = function(index){
+		this.controls = ['notification-stream','app-store','app-settings'];
+
+		this.Navigate = function(index){
 
 			if(capture.activeIndex != index){
+
+				$scope.$broadcast('exiting-' + capture.controls[capture.activeIndex]);
 				capture.activeIndex = index;
-				$scope.$apply();
+				$scope.$broadcast('entering-' + capture.controls[capture.activeIndex]);
+
 			}
 
 		}
@@ -47,7 +49,6 @@ var MainNavigationController = new function(){};
 		this.activeIndex = 0;
 
 		this.iOS = ionic.Platform.isIOS();
-
 	});
 
 	ambian.run(function($ionicPlatform){

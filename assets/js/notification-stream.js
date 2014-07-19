@@ -4,13 +4,13 @@
 
 	var maxStreamItemCount = 10;
 
-	var ambianStream = angular.module('notification-stream',['ionic','stream','ambian-notification']);
+	var ambianStream = angular.module('notification-stream',['ionic','stream','settings','ambian-notification']);
 
 	ambianStream.directive('notificationStream',function(){
 
 		var directive = ambianDirectiveWithTemplate('notification-stream');
 
-		directive.controller = ['$scope','stream',function($scope,stream){
+		directive.controller = ['$scope','stream','settings',function($scope,stream,settings){
 
 			var capture = this;
 
@@ -24,16 +24,42 @@
 
 			capture.lastPost = (new Date()).getTime();
 
+			this.activeSettings = '';
+
+			$scope.$on('entering-notification-stream',function(){
+				capture.connect();
+			});
+
 			this.connect = function(){
 
-				stream({
-					AmbianStreamIds:[1],
-					Sources:{
-						Corporate:true,
-						SocialMedia:true
-					}
-				},function(connectionStatus){
+				var settingsString = JSON.stringify(settings());
+
+				if(capture.activeSettings == settingsString && capture.connectionStatus == eConnectionStatus.connected){
+						return;
+				}
+
+				capture.activeSettings = settingsString;
+				capture.notifications = [];
+
+				stream(settings(),function(connectionStatus){
+
 					capture.connectionStatus = connectionStatus;
+
+					// annoying that this part has to be here: basically, we need to
+					// call $scope.$apply because otherwise, after connecting, the
+					// connecting animation will play until the first notification makes
+					// it all the way through (which can be a long time with strong
+					// filters). however, we can't just call $scope.$apply synchronously
+					// because with saturated streams, it will cause an error by firing
+					// during the digest while posting the first notification. so we
+					// resolve this by sticking it in a timeout block with 0 offset.
+
+					if(connectionStatus == eConnectionStatus.connected){
+						setTimeout(function(){
+							$scope.$apply();
+						});
+					}
+
 				},this.handleStreamTick);
 
 			};

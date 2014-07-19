@@ -3,7 +3,7 @@
 
 .item.item-checkbox(ng-repeat='feed in AppSettingsCtrl.subscriptions')
 	label.checkbox
-		input(type='checkbox', ng-checked='feed.active')
+		input(type='checkbox', ng-model='feed.active')
 	| {{feed.name}}
 
 .header Speed
@@ -17,5 +17,5 @@
 
 .item.item-checkbox(ng-repeat='source in AppSettingsCtrl.sources')
 	label.checkbox
-		input(type='checkbox', ng-checked='source.enabled')
+		input(type='checkbox', ng-model='source.enabled')
 	| {{source.name}}
