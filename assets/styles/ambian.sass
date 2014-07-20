@@ -15,12 +15,27 @@ ambian-app
 	background-color:#fcfcfc
 
 	nav
+		height:100%
+
 		.controls
-			display:block
+			position:absolute
+			top:0px
+			left:0px
+			width:100%
+			background:rgba(252,252,252,0.9)
 			text-align:center
 			font-size:32px
-			margin:-1px
-			background-color:$primary-highlight
+			overflow:hidden
+			height:44px
+			opacity:1.0
+			z-index:10
+
+			&.ng-hide-add,&.ng-hide-remove
+			  -webkit-transition:opacity linear 0.2s
+			  transition:opacity linear 0.2s
+
+			&.ng-hide
+				opacity:0.0
 
 			.ios-status-offset
 				height:22px
@@ -33,17 +48,15 @@ ambian-app
 				color:white
 				font-size:32px
 				height:44px
+				color:$primary-highlight
 
 				@media(max-width:550px)
 					padding:0px 10%
 
-				&:hover
-					color:#ddddff
-
 	notification-stream
 		display:none
-		padding:7px
 		font-family:'Open Sans',sans-serif
+		height:100%
 
 		h4
 			display:block
@@ -52,6 +65,13 @@ ambian-app
 			font-family:inherit
 			color:#666666
 			font-size:24px
+
+		.connected
+			height:100%
+			padding:7px
+
+			&.paused
+				overflow-y:auto
 
 		.disconnected
 			button.connect
@@ -79,33 +99,72 @@ ambian-app
 			font-family:'Open Sans',sans-serif
 			position:absolute
 			bottom:10px
-			right:10px
-			background: $primary-highlight
+			right:0px
+			color: $primary-highlight
 			border: 0px
-			color:white
+			background:rgba(252,252,252,0.9)
 			font-size: 26px
 			border-radius: 30px
 
+
+
 			&:hover
-				background-color:lighten($primary-highlight,4%)
+				background-color:rgba(242,242,242,0.9)
 
 			&.play
+				box-shadow:gray 0px 0px 4px
 				padding: 3px 14px 3px 14px
+				right:16px
+				opacity:1.0
+
+
+				&.ng-hide-add,&.ng-hide-remove
+					-webkit-transition:opacity linear 0.2s
+					transition:opacity linear 0.2s
+
+				&.ng-hide
+					opacity:0.0
 
 				i
 					margin-right:-4px
 
 			&.pause
 				padding: 3px 16px 3px 15px
-
-				i
-					margin-right:-1px
+				width: 100%
+				height: 100%
+				background-color: transparent
 
 	app-store
 		display:none
+		margin-top:44px
 
 	app-settings
 		display:none
+		margin-top:44px
 
 	.active
 		display:block
+
+// components
+
+.stabalizer
+	height:1px
+	width:100%
+
+.item
+	border-color:transparent
+	margin: -1px 0px
+
+// platform-dependent styles
+
+.platform-browser.platform-win32
+	ambian-app
+
+		nav
+			.controls
+				button:hover
+					color:#ddddff
+
+		notification-stream
+			button.streamControl.play
+				right:28px

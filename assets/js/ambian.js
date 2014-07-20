@@ -34,6 +34,8 @@ function ambianDirectiveWithTemplate(templateName){
 
 		this.controls = ['notification-stream','app-store','app-settings'];
 
+		this.minimized = true;
+
 		this.Navigate = function(index){
 
 			if(capture.activeIndex != index){
@@ -45,6 +47,14 @@ function ambianDirectiveWithTemplate(templateName){
 			}
 
 		}
+
+		$scope.$on('stream-pause',function(){
+			capture.minimized = false;
+		});
+
+		$scope.$on('stream-play',function(){
+			capture.minimized = true;
+		});
 
 		this.activeIndex = 0;
 

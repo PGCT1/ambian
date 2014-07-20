@@ -30,6 +30,16 @@
 				capture.connect();
 			});
 
+			this.pause = function(){
+				capture.paused = true;
+				$scope.$broadcast('stream-pause');
+			};
+
+			this.play = function(){
+				capture.paused = false;
+				$scope.$broadcast('stream-play');
+			};
+
 			this.connect = function(){
 
 				var settingsString = JSON.stringify(settings());
