@@ -54,11 +54,9 @@
 					// during the digest while posting the first notification. so we
 					// resolve this by sticking it in a timeout block with 0 offset.
 
-					if(connectionStatus == eConnectionStatus.connected){
-						setTimeout(function(){
-							$scope.$apply();
-						});
-					}
+					setTimeout(function(){
+						$scope.$apply();
+					});
 
 				},this.handleStreamTick);
 

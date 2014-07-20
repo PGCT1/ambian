@@ -8,9 +8,9 @@ var eConnectionStatus = {
 
 (function(){
 
-	var stream = angular.module('stream',[]);
+	var stream = angular.module('stream',['ActiveProcess']);
 
-	stream.factory('stream',function(){
+	stream.factory('stream',['ActiveProcess',function(ActiveProcess){
 
 		var SOURCE_STREAM = 'wss://ambianmonitordev-projectgemini.rhcloud.com:8443/json';
 		var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
@@ -22,13 +22,17 @@ var eConnectionStatus = {
 
 		var capture = {};
 
-		return function(settings,statusCallback,notificationCallback){
+		var connect = function(settings,statusCallback,notificationCallback){
 
 			if(socket){
 				socket.close();
 			}
 
-			// if we have callbacks, store them; we should always have settings
+			// if we have parameters, store them; if not, use the stored values
+
+			if(settings){
+				capture.settings = settings;
+			}
 
 			if(statusCallback){
 				capture.statusCallback = statusCallback;
@@ -50,7 +54,7 @@ var eConnectionStatus = {
 
 				socket.send(JSON.stringify({
 					Password:SOURCE_STREAM_PASSWORD,
-					DesiredStreams:settings
+					DesiredStreams:capture.settings
 				}));
 
 			};
@@ -72,8 +76,18 @@ var eConnectionStatus = {
 				capture.statusCallback(eConnectionStatus.disconnected);
 			};
 
-		}
+		};
 
-	});
+		ActiveProcess(function(active){
+			if(active){
+				connect();
+			}else{
+				socket.close();
+			}
+		});
+
+		return connect;
+
+	}]);
 
 })();
