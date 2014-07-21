@@ -2,7 +2,7 @@
 nav(ng-controller='MainNavigationController as MainNavigationCtrl', ng-init='MainNavigationCtrl.initialize()')
 
 	.controls.ng-hide(onselectstart='return false;', ng-show='!MainNavigationCtrl.minimized')
-		.ios-status-offset(ng-show='MainNavigationCtrl.iOS')
+		.ios-status-offset.ng-hide(ng-show='MainNavigationCtrl.iOS')
 		button.active(on-tap='MainNavigationCtrl.Navigate(0)')
 			i.icon.ion-ios7-film(ng-class='{"ion-ios7-film-outline":MainNavigationCtrl.activeIndex != 0}')
 		button(on-tap='MainNavigationCtrl.Navigate(1)')
