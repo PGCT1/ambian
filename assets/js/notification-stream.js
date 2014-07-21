@@ -44,7 +44,7 @@
 				$scope.$broadcast('stream-play');
 			};
 
-			this.connect = function(){
+			this.connect = function(force){
 
 				var settingsObj = settings();
 
@@ -56,7 +56,8 @@
 
 				if(capture.activeSettings == settingsString
 					&& capture.connectionStatus == eConnectionStatus.connected
-					&& speed == capture.speedLimit){
+					&& speed == capture.speedLimit
+					&& !force){
 						return;
 				}
 

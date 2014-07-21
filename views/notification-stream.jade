@@ -3,7 +3,7 @@ connection-management(ng-switch='StreamCtrl.connectionStatus')
 
 	.disconnected(ng-switch-when='0')
 		h4 Unable to connect to server. Please check your internet connection and try again.
-		button.connect(ng-click='AmbianStreamCtrl.connect()') TRY AGAIN
+		button.connect(ng-click='AmbianStreamCtrl.connect(true)') TRY AGAIN
 
 	.connecting(ng-switch-when='1')
 		h4 Connecting...
