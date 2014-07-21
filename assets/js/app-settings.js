@@ -50,7 +50,7 @@
 			];
 
 			this.saveSettings = function(){
-				
+
 				var settingsObj = {
 					AmbianStreamIds:[],
 					Sources:{}
@@ -64,7 +64,7 @@
 
 				}
 
-				settingsObj.speed = capture.speed;
+				settingsObj.speed = capture.speed * -1;
 
 				settingsObj.Sources.Corporate = capture.sources[0].enabled;
 				settingsObj.Sources.SocialMedia = capture.sources[1].enabled;
@@ -88,7 +88,7 @@
 
 				}
 
-				capture.speed = settingsObj.speed;
+				capture.speed = settingsObj.speed * -1;
 
 				capture.sources[0].enabled = settingsObj.Sources.Corporate;
 				capture.sources[1].enabled = settingsObj.Sources.SocialMedia;

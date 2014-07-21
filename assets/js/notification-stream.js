@@ -18,6 +18,8 @@
 
 			this.notificationLimit = maxStreamItemCount;
 
+			this.speedLimit = 500;	// min delay in ms between posting notifications
+
 			this.notifications = [];
 
 			this.connectionStatus = eConnectionStatus.connecting;
@@ -48,6 +50,8 @@
 						return;
 				}
 
+				capture.speedLimit = settings().speed;
+
 				capture.activeSettings = settingsString;
 				capture.notifications = [];
 
@@ -68,7 +72,7 @@
 						$scope.$apply();
 					});
 
-				},this.handleStreamTick);
+				},capture.handleStreamTick);
 
 			};
 
@@ -79,8 +83,8 @@
 				}
 
 				var now = (new Date()).getTime();
-
-				if(now - capture.lastPost < 500){
+				
+				if(now - capture.lastPost < capture.speedLimit){
 					return;
 				}else{
 					capture.lastPost = now;

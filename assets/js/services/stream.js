@@ -18,9 +18,8 @@ var eConnectionStatus = {
 		//  var SOURCE_STREAM = 'ws://192.168.1.5:3000/json';
 		//  var SOURCE_STREAM_PASSWORD = 'your_password';
 
-		var socket;
-
 		var capture = {};
+		var socket;
 
 		var connect = function(settings,statusCallback,notificationCallback){
 
