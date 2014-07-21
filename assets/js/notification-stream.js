@@ -44,16 +44,28 @@
 
 			this.connect = function(){
 
-				var settingsString = JSON.stringify(settings());
+				var settingsObj = settings();
 
-				if(capture.activeSettings == settingsString && capture.connectionStatus == eConnectionStatus.connected){
+				var speed = settingsObj.speed;
+
+				delete settingsObj.speed;
+
+				var settingsString = JSON.stringify(settingsObj);
+
+				if(capture.activeSettings == settingsString
+					&& capture.connectionStatus == eConnectionStatus.connected
+					&& speed == capture.speedLimit){
 						return;
 				}
 
-				capture.speedLimit = settings().speed;
+				if(!(capture.activeSettings == settingsString
+					&& capture.connectionStatus == eConnectionStatus.connected)){
+					capture.notifications = [];
+				}
+
+				capture.speedLimit = speed;
 
 				capture.activeSettings = settingsString;
-				capture.notifications = [];
 
 				stream(settings(),function(connectionStatus){
 
@@ -69,6 +81,20 @@
 					// resolve this by sticking it in a timeout block with 0 offset.
 
 					setTimeout(function(){
+
+						// autoplay on reconnect
+
+						setTimeout(function(){
+
+							if(connectionStatus == eConnectionStatus.connected){
+								capture.paused = false;
+								$scope.$broadcast('stream-play');
+							}
+
+							$scope.$apply();
+
+						},500);
+
 						$scope.$apply();
 					});
 
@@ -83,7 +109,7 @@
 				}
 
 				var now = (new Date()).getTime();
-				
+
 				if(now - capture.lastPost < capture.speedLimit){
 					return;
 				}else{

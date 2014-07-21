@@ -11,7 +11,7 @@ connection-management(ng-switch='StreamCtrl.connectionStatus')
 
 	.connected(ng-switch-when='2', ng-class='{paused:StreamCtrl.paused}')
 
-		.buffer.ng-hide(ng-show='StreamCtrl.paused')
+		.buffer(ng-show='StreamCtrl.paused')
 
 		ambian-notification(ng-repeat='notification in StreamCtrl.notifications')
 
