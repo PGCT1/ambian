@@ -28,6 +28,8 @@
 
 			this.activeSettings = '';
 
+			this.ignoreNextDisconnect = false;	// set to true when we close manually
+
 			$scope.$on('entering-notification-stream',function(){
 				capture.connect();
 			});
@@ -67,7 +69,14 @@
 
 				capture.activeSettings = settingsString;
 
+				capture.ignoreNextDisconnect = true;
+
 				stream(settings(),function(connectionStatus){
+
+					if(connectionStatus == eConnectionStatus.disconnected && capture.ignoreNextDisconnect == true){
+						capture.ignoreNextDisconnect = false;
+						return;
+					}
 
 					capture.connectionStatus = connectionStatus;
 
