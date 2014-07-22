@@ -17,8 +17,8 @@ ambian-notification
 		padding-bottom:5px
 
 	&.ng-move,&.ng-enter,&.ng-leave
-	  -webkit-transition:all linear 0.5s
-	  transition:all linear 0.5s
+	  -webkit-transition:max-height ease-in 0.7s, opacity ease-in 0.5s
+	  transition:max-height ease-in 0.7s, opacity ease-in 0.5s
 
 	&.ng-leave.ng-leave-active,&.ng-move,&.ng-enter
 	  opacity:0
@@ -26,7 +26,7 @@ ambian-notification
 
 	&.ng-leave,&.ng-move.ng-move-active,&.ng-enter.ng-enter-active
 	  opacity:1
-	  max-height:170px
+	  max-height:340px
 
 	a
 		color:$primary-highlight
