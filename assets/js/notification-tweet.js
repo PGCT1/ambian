@@ -61,7 +61,11 @@
 
 			}
 
+			// fix empty usernames, since apparently these are allowed on twitter
 
+			if(!$scope.tweet.Username || $scope.tweet.Username.length == 0){
+				$scope.tweet.Username = '@' + $scope.tweet.Screenname;
+			}
 
 		}];
 
