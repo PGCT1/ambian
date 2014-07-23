@@ -1,14 +1,15 @@
 
 var eNotificationTypes = {
 	cNotificationTypeDefault:0,
-	cNotificationTypeTweet:1
+	cNotificationTypeTweet:1,
+	cNotificationTypeOfficialNews:2
 };	// directly parallel to the iota declaration chain in notification.go
 
 (function(){
 
 	var NotificatonTypes = Object.keys(eNotificationTypes);
 
-	var ambianNotification = angular.module('ambian-notification',['notification-tweet']);
+	var ambianNotification = angular.module('ambian-notification',['notification-tweet','notification-official']);
 
 	ambianNotification.directive('ambianNotification',function(){
 

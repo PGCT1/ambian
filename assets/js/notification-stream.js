@@ -70,7 +70,11 @@
 
 				capture.activeSettings = settingsString;
 
-				capture.ignoreNextDisconnect = true;
+				if(capture.connectionStatus == eConnectionStatus.connected){
+
+					capture.ignoreNextDisconnect = true;
+
+				}
 
 				stream(settings(),function(connectionStatus){
 

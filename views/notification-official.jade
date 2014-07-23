@@ -1,0 +1,7 @@
+
+.sourceLogo(ng-style='{"background-image":"url({{article.sourceLogo}})"}')
+
+h1.sourceName
+	a(href='{{article.Content.Link}}', target='_blank') {{article.Source}}
+
+p.text(ng-bind-html='article.Content.Title')
