@@ -1,9 +1,10 @@
 
-.sourceLogo(ng-style='{"background-image":"url({{article.sourceLogo}})"}')
+a(href='{{article.Link}}', target='_blank')
+	.leftColumn
+		.sourceLogo(ng-style='{"background-image":"url({{article.sourceLogo}})"}')
 
-h1.title {{article.Content.Title}}
+	h1.title {{article.Content.Title}}
 
-h2.sourceName
-	a(href='{{article.Content.Guid}}', target='_blank') {{article.Source}}
+	h2.sourceName {{article.Source}}
 
-p.text {{article.Content.Description}}
+	p.text {{article.Content.Description}}

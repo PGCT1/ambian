@@ -2,9 +2,37 @@
 notification-official
 	display:block
 
+	.leftColumn
+		height: 135px
+		width: 50px
+		float: left
+		margin-right: 5px
+
+		.sourceLogo
+			height: 50px
+			width: 50px
+			border-radius: 4px
+			background-size: contain
+			background-repeat: no-repeat
+
 	.title
 		font-size:22px
+		line-height: 27px
+		overflow:hidden
 
 	.sourceName
+		color:$primary-highlight
 		white-space:nowrap
-		font-size:18px
+		font-size:15px
+		margin:5px 0px
+		overflow:hidden
+
+	.text
+		overflow:hidden
+		color: #666
+		font-size: 16px
+
+@media(max-width:550px)
+	notification-official
+		.leftColumn
+			height:50px
