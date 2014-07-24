@@ -12,11 +12,11 @@ var eConnectionStatus = {
 
 	stream.factory('stream',['ActiveProcess',function(ActiveProcess){
 
-		//var SOURCE_STREAM = 'wss://ambianmonitordev-projectgemini.rhcloud.com:8443/json';
-		//var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
+		var SOURCE_STREAM = 'wss://ambianmonitordev-projectgemini.rhcloud.com:8443/json';
+		var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
-		  var SOURCE_STREAM = 'ws://localhost:3000/json';
-		  var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
+		// var SOURCE_STREAM = 'ws://localhost:3000/json';
+		// var SOURCE_STREAM_PASSWORD = 'qkfojweokfjasokdfjoakwefl';
 
 		var capture = {};
 		var socket;

@@ -24,7 +24,7 @@
 
 			this.connectionStatus = eConnectionStatus.connecting;
 
-			capture.lastPost = (new Date()).getTime();
+			capture.lastPost = {};
 
 			this.activeSettings = '';
 
@@ -124,10 +124,25 @@
 
 				var now = (new Date()).getTime();
 
-				if(now - capture.lastPost < capture.speedLimit){
+				// ignore notification if we've recently received one with
+				// an identical signature
+
+				var sourceIndex = 0;
+
+				var sources = Object.keys(notification.MetaData.Sources);
+
+				for(var i=0;i<sources.length;++i){
+					if(notification.MetaData.Sources[sources[i]] == 1){
+						sourceIndex += Math.pow(2,i);
+					}
+				}
+
+				var lastPostFromSource = (capture[sourceIndex] ? capture[sourceIndex].lastPost : 0);
+
+				if(now - lastPostFromSource < capture.speedLimit){
 					return;
 				}else{
-					capture.lastPost = now;
+					capture[sourceIndex] = {lastPost:now};
 				}
 
 				capture.notifications.unshift(notification);
