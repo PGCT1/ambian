@@ -18,11 +18,15 @@
 
 			$scope.article.parsed = true;
 
-			if($scope.article.Content.Description.length > 200){
+			var clip = $scope.article.Content.Description.replace(/<[^>]+>/gm, '');
 
-				$scope.article.Content.Description = $scope.article.Content.Description.substring(0,200) + '...'
+			if(clip.length > 200){
+
+				clip = clip.substring(0,200) + '...'
 
 			}
+
+			$scope.article.Content.Description = clip;
 
 		}];
 
