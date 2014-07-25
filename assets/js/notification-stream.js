@@ -4,13 +4,13 @@
 
 	var maxStreamItemCount = 10;
 
-	var ambianStream = angular.module('notification-stream',['ionic','stream','settings','ambian-notification']);
+	var ambianStream = angular.module('notification-stream',['ionic','stream','settings','ambian-notification','PriorityService']);
 
 	ambianStream.directive('notificationStream',function(){
 
 		var directive = ambianDirectiveWithTemplate('notification-stream');
 
-		directive.controller = ['$scope','stream','settings',function($scope,stream,settings){
+		directive.controller = ['$scope','stream','settings','PriorityService',function($scope,stream,settings,PriorityService){
 
 			var capture = this;
 
@@ -24,7 +24,7 @@
 
 			this.connectionStatus = eConnectionStatus.connecting;
 
-			capture.lastPost = {};
+			capture.lastPost = 0;	// timestamp of most recent notification added
 
 			this.activeSettings = '';
 
@@ -64,6 +64,7 @@
 				if(!(capture.activeSettings == settingsString
 					&& capture.connectionStatus == eConnectionStatus.connected)){
 					capture.notifications = [];
+					PriorityService.clearNotifications();
 				}
 
 				capture.speedLimit = speed;
@@ -122,30 +123,20 @@
 					return false;
 				}
 
+				var notificationToAdd;
+
 				var now = (new Date()).getTime();
 
-				// ignore notification if we've recently received one with
-				// an identical signature
+				PriorityService.addNotification(notification);
 
-				var sourceIndex = 0;
-
-				var sources = Object.keys(notification.MetaData.Sources);
-
-				for(var i=0;i<sources.length;++i){
-					if(notification.MetaData.Sources[sources[i]] == 1){
-						sourceIndex += Math.pow(2,i);
-					}
-				}
-
-				var lastPostFromSource = (capture[sourceIndex] ? capture[sourceIndex].lastPost : 0);
-
-				if(now - lastPostFromSource < capture.speedLimit){
+				if(now - capture.lastPost < capture.speedLimit){
 					return;
 				}else{
-					capture[sourceIndex] = {lastPost:now};
+					notificationToAdd = PriorityService.popNotification();
+					capture.lastPost = now;
 				}
 
-				capture.notifications.unshift(notification);
+				capture.notifications.unshift(notificationToAdd);
 
 				if(capture.notifications.length == maxStreamItemCount){
 					capture.notifications.pop();
