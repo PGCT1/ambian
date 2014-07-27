@@ -24,11 +24,11 @@
 
 			this.connectionStatus = eConnectionStatus.connecting;
 
-			capture.lastPost = 0;	// timestamp of most recent notification added
+			this.lastPost = 0;	// timestamp of most recent notification added
 
 			this.activeSettings = '';
 
-			this.ignoreNextDisconnect = false;	// set to true when we close manually
+			this.ignoreNextDisconnect = false;	// set to true when we close the connection manually
 
 			$scope.$on('entering-notification-stream',function(){
 				capture.connect();

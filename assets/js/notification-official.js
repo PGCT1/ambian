@@ -45,7 +45,13 @@
 			}else if($scope.article.Content.Links.length > 0){
 				$scope.article.Link = $scope.article.Content.Links[0].Href;
 			}else{
-				//wtf?
+
+				// this shouldn't happen -- the article link should always be in
+				// one of the above two places
+
+				console.log('Unable to parse link for article: ');
+				console.log($scope.article);
+
 				$scope.article.Link = '#';
 			}
 
