@@ -13,7 +13,8 @@ connection-management(ng-switch='StreamCtrl.connectionStatus')
 
 		.buffer(ng-show='StreamCtrl.paused')
 
-		ambian-notification(ng-repeat='notification in StreamCtrl.notifications')
+		ambian-notification(ng-repeat='notification in StreamCtrl.notifications', notification='notification', on-link-click='StreamCtrl.linkClick')
+
 
 	button.streamControl.pause(ng-show='StreamCtrl.connectionStatus == 2 && StreamCtrl.paused == false', ng-click='StreamCtrl.pause()')
 	button.streamControl.play.ng-hide(ng-show='StreamCtrl.connectionStatus == 2 && StreamCtrl.paused == true', ng-click='StreamCtrl.play()')

@@ -31,6 +31,11 @@ var eNotificationTypes = {
 
 		directive.controllerAs = 'AmbianNotificationCtrl';
 
+		directive.scope = {
+			notification: '=notification',
+			linkClick: '=onLinkClick'
+		};
+
 		return directive;
 
 	});

@@ -14,7 +14,8 @@ var eAvailableStreams = {
 		Sources:{
 			Corporate:true,
 			SocialMedia:true
-		}
+		},
+		speed:2500
 	};
 
 	settings.factory('settings',function(){

@@ -44,6 +44,10 @@
 				$scope.$broadcast('stream-play');
 			};
 
+			this.linkClick = function(url){
+				$scope.$broadcast('external-link-click',url);
+			};
+
 			this.connect = function(force){
 
 				var settingsObj = settings();

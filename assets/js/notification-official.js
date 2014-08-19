@@ -59,7 +59,8 @@
 
 		directive.controllerAs = 'ArticleCtrl';
 		directive.scope = {
-			article: '=article'
+			article: '=article',
+			linkClick: '=onLinkClick'
 		};
 
 		return directive;

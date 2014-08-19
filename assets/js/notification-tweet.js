@@ -4,7 +4,23 @@
 	var cLinkRegex = /\bhttps?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|‌​]/g
 	var cUserReferenceRegex = /@([a-z0-9]|_)+/ig
 
-	var tweetNotification = angular.module('notification-tweet',[]);
+	var tweetBody = angular.module('tweet-body',[]);
+
+	tweetBody.directive('tweetBody',function($compile,$parse){
+
+		return {
+      restrict: 'E',
+      link: function(scope, element, attr) {
+        scope.$watch(attr.content, function() {
+          element.html($parse(attr.content)(scope));
+          $compile(element.contents())(scope);
+        }, true);
+      }
+    }
+
+	});
+
+	var tweetNotification = angular.module('notification-tweet',['tweet-body']);
 
 	tweetNotification.directive('notificationTweet',function(){
 
@@ -35,7 +51,7 @@
 
 			if(urls)
 				for(var i=0;i<urls.length;++i)
-					$scope.tweet.Text = $scope.tweet.Text.replace(urls[i],'<a href="' + urls[i] + '" target="_blank">link</a>');
+					$scope.tweet.Text = $scope.tweet.Text.replace(urls[i],'<a href="#" ng-click="linkClick(\''+urls[i]+'\')">alink</a>');
 
 			// add user references
 
@@ -43,7 +59,8 @@
 
 			if(userReferences)
 				for(var i=0;i<userReferences.length;++i)
-					$scope.tweet.Text = $scope.tweet.Text.replace(userReferences[i],'<a href="https://twitter.com/' + userReferences[i].substring(1) + '" target="_blank">' + userReferences[i] + '</a>');
+					$scope.tweet.Text = $scope.tweet.Text.replace(userReferences[i],'<a href="#" ng-click="linkClick(\'https://twitter.com/' + userReferences[i].substring(1) + '\')">' + userReferences[i] + '</a>');
+
 
 			// remove duplicate hashtags so we don't get ng-repeat complaining
 
@@ -71,7 +88,8 @@
 
 		directive.controllerAs = 'TweetCtrl';
 		directive.scope = {
-      tweet: '=tweet'
+			tweet: '=tweet',
+			linkClick: '=onLinkClick'
     };
 
 		return directive;

@@ -56,6 +56,19 @@ function ambianDirectiveWithTemplate(templateName){
 			capture.minimized = true;
 		});
 
+		$scope.$on('navigate-external-url',function(){
+			alert('asdf');
+		});
+
+		$scope.$on('external-link-click',function(event,url){
+
+			if(ionic.Platform.isWebView())
+				alert("TODO")
+			else
+				window.open(url)	// running in a browser, so just open a new tab
+
+		})
+
 		this.activeIndex = 0;
 
 		this.iOS = ionic.Platform.isIOS();

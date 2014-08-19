@@ -4,66 +4,63 @@
 
   var PriorityService = angular.module('PriorityService',['settings']);
 
-  var cStaleTime = 30000;  // time before we discard a notification
-
-  var priorityQueue = [
-    function(notification){
-      return (notification.MetaData.Sources.Corporate &&
-          !notification.MetaData.Sources.SocialMedia);
-    },function(notification){
-      return notification.MetaData.Sources.Corporate;
-    }
-  ];
+  var cStaleTime = 90000;  // time before we discard a notification
 
   PriorityService.factory('PriorityService',['settings',function(settings){
 
     var stampedNotifications = [];
+    var recentHistory = [];
 
-    function findNotification(criteriaFunction){
+    function rate(notification){
 
-      var index = -1;
+      var rating;
 
-      for(var i=0;i<stampedNotifications.length;++i){
+      if(notification.MetaData.Sources.Corporate &&
+        !notification.MetaData.Sources.SocialMedia){
+          rating = 100;
+      }else if(notification.MetaData.Sources.Corporate){
+        rating = 50;
+      }else{
+        rating = 30;
+      }
 
-        if(criteriaFunction(stampedNotifications[i].notification)){
-          index = i;
-          break;
+      if(notification.Type == 2){
+
+        for(var i=0;i<recentHistory.length;++i){
+
+          if(recentHistory[i].Type == notification.Type){
+
+            if(notification.Content.Source == recentHistory[i].Content.Source){
+              rating = rating / 2;
+            }
+
+          }
+
         }
 
       }
 
-      return index;
+      return rating * Math.random();
 
     }
 
     function chooseBestNotification(){
 
-      // returns the index of the best notification
+      var currentHighestIndex = 0;
+      var currentHighestRating = 0;
 
-      var bestNotificationIndex = -1;
+      for(var i=0;i<stampedNotifications.length;++i){
 
-      for(var i=0;i<priorityQueue.length;++i){
+        var score = rate(stampedNotifications[i].notification);
 
-        bestNotificationIndex = findNotification(priorityQueue[i]);
-
-        if(-1 == bestNotificationIndex){
-          break;
+        if(score > currentHighestRating){
+          currentHighestRating = score;
+          currentHighestIndex = i;
         }
 
       }
 
-      // if we found something interesting, return it; otherwise, just
-      // return the last element
-
-      if(bestNotificationIndex != -1){
-
-        return bestNotificationIndex;
-
-      }else{
-
-        return stampedNotifications.length - 1;
-
-      }
+      return currentHighestIndex;
 
     }
 
@@ -89,6 +86,10 @@
 
       stampedNotifications.push(stampedNotification);
 
+      if(recentHistory.length == 30){
+        recentHistory.shift();
+      }
+
       discardOldNotifications();
     }
 
@@ -97,6 +98,8 @@
       var bestNotificationIndex = chooseBestNotification();
 
       var chosenNotification = stampedNotifications[bestNotificationIndex].notification;
+
+      recentHistory.push(chosenNotification);
 
       for(var i=bestNotificationIndex;i<stampedNotifications.length-1;++i){
         stampedNotifications[i] = stampedNotifications[i+1];

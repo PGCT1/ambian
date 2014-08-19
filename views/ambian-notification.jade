@@ -3,6 +3,6 @@ ng-switch(on='AmbianNotificationCtrl.NotificationType')
 
 	.default(ng-switch-when='cNotificationTypeDefault') Error: unknown notification type.
 
-	notification-tweet(tweet='notification.Content', ng-switch-when='cNotificationTypeTweet')
+	notification-tweet(tweet='notification.Content', on-link-click='linkClick', ng-switch-when='cNotificationTypeTweet')
 
-	notification-official(article='notification.Content', ng-switch-when='cNotificationTypeOfficialNews')
+	notification-official(article='notification.Content', on-link-click='linkClick', ng-switch-when='cNotificationTypeOfficialNews')
