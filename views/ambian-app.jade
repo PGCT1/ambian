@@ -16,16 +16,6 @@ nav(ng-controller='MainNavigationController as MainNavigationCtrl', ng-init='Mai
 
 	notification-stream(ng-class='{active:MainNavigationCtrl.activeIndex == 0}')
 
-	iframe-browser.ng-hide(ng-show='MainNavigationCtrl.iframeBrowserActive')
-
-		control-bar
-
-			a.back(href='#', ng-click='MainNavigationCtrl.dismissIframeBrowser()')
-				i.icon.ion-chevron-left
-
-		iframe-container
-			iframe(ng-src='{{trustSrc(MainNavigationCtrl.iframeUrl)}}')
-
 	app-store(ng-class='{active:MainNavigationCtrl.activeIndex == 1}')
 
 	app-settings(ng-class='{active:MainNavigationCtrl.activeIndex == 2}')

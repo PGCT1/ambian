@@ -4,6 +4,8 @@
 	var cLinkRegex = /\bhttps?:\/\/[\-A-Za-z0-9+&@#\/%?=~_|!:,.;]*[\-A-Za-z0-9+&@#\/%=~_|‌​]/g
 	var cUserReferenceRegex = /@([a-z0-9]|_)+/ig
 
+	var cArticleSnippedLength = 400; // in characters
+
 	var tweetNotification = angular.module('notification-official',[]);
 
 	tweetNotification.directive('notificationOfficial',function(){
@@ -26,9 +28,9 @@
 
 			var clip = $scope.article.Content.Description.replace(/<[^>]+>/gm, '');
 
-			if(clip.length > 200){
+			if(clip.length > cArticleSnippedLength){
 
-				clip = clip.substring(0,200) + '...'
+				clip = clip.substring(0,cArticleSnippedLength) + '...'
 
 			}
 

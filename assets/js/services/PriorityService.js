@@ -38,6 +38,13 @@
 
         }
 
+      }else if(notification.Type == 1){
+
+        // tweet
+
+        if(!notification.Content.Verified)
+          rating = rating * 0.75
+        
       }
 
       return rating * Math.random();

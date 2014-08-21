@@ -3,6 +3,7 @@
 
 h1.name
 	a(href='#', ng-click='linkClick("http://twitter.com/{{tweet.Screenname}}")') {{tweet.Username}}
+	img.verified(src='images/verified.png', ng-show='tweet.Verified')
 
 tweet-body(content='tweet.Text')
 

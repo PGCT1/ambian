@@ -63,7 +63,6 @@ function ambianDirectiveWithTemplate(templateName){
 		this.showIframeBrowserModal = function(url){
 			capture.iframeBrowserActive = true;
 			capture.iframeUrl = url;
-			//alert(url);
 		}
 
 		$scope.$on('stream-pause',function(){
@@ -80,10 +79,9 @@ function ambianDirectiveWithTemplate(templateName){
 
 		$scope.$on('external-link-click',function(event,url){
 
-			if(ionic.Platform.isWebView()){
+			if(ionic.Platform.isWebView())
 				window.open(url,'_blank');
-				//capture.showIframeBrowserModal(url)
-			}else
+			else
 				window.open(url)	// running in a browser, so just open a new tab
 
 		})
