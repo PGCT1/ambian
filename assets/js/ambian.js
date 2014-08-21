@@ -20,7 +20,7 @@ function ambianDirectiveWithTemplate(templateName){
 
 (function(){
 
-	var ambian = angular.module('ambian',['ionic','onTap','notification-stream','app-store','app-settings']);
+	var ambian = angular.module('ambian',['ionic','ngSanitize','onTap','notification-stream','app-store','app-settings']);
 
 	ambian.directive('ambianApp',function(){
 
@@ -28,13 +28,16 @@ function ambianDirectiveWithTemplate(templateName){
 
 	});
 
-	ambian.controller('MainNavigationController',function($scope){
+	ambian.controller('MainNavigationController',function($scope,$sce){
 
 		var capture = this;
 
 		this.controls = ['notification-stream','app-store','app-settings'];
 
 		this.minimized = true;
+
+		this.iframeBrowserActive = false;
+		this.iframeHtml = '';
 
 		this.Navigate = function(index){
 
@@ -46,6 +49,21 @@ function ambianDirectiveWithTemplate(templateName){
 
 			}
 
+		}
+
+		$scope.trustSrc = function(src) {
+	    return $sce.trustAsResourceUrl(src);
+	  }
+
+		this.dismissIframeBrowser = function(){
+			capture.iframeBrowserActive = false;
+			capture.iframeUrl = '';
+		}
+
+		this.showIframeBrowserModal = function(url){
+			capture.iframeBrowserActive = true;
+			capture.iframeUrl = url;
+			//alert(url);
 		}
 
 		$scope.$on('stream-pause',function(){
@@ -62,9 +80,10 @@ function ambianDirectiveWithTemplate(templateName){
 
 		$scope.$on('external-link-click',function(event,url){
 
-			if(ionic.Platform.isWebView())
-				alert("TODO")
-			else
+			if(ionic.Platform.isWebView()){
+				window.open(url,'_blank');
+				//capture.showIframeBrowserModal(url)
+			}else
 				window.open(url)	// running in a browser, so just open a new tab
 
 		})
@@ -75,16 +94,6 @@ function ambianDirectiveWithTemplate(templateName){
 	});
 
 	ambian.run(function($ionicPlatform){
-
-	  $ionicPlatform.ready(function(){
-
-	    // Hide the accessory bar
-
-	    if(window.cordova && window.cordova.plugins.Keyboard) {
-	      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-	    }
-
-	  });
 
 	});
 

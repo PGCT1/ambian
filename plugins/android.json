@@ -9,7 +9,7 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"WebSocket\"><param name=\"android-package\" value=\"com.ququplay.websocket.WebSocket\" /></feature>",
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -18,7 +18,7 @@
         }
     },
     "installed_plugins": {
-        "com.ququplay.websocket.WebSocket": {
+        "org.apache.cordova.inappbrowser": {
             "PACKAGE_NAME": "com.projectgemini.ambian"
         }
     },
