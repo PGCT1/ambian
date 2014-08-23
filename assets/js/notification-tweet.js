@@ -51,7 +51,7 @@
 
 			if(urls)
 				for(var i=0;i<urls.length;++i)
-					$scope.tweet.Text = $scope.tweet.Text.replace(urls[i],'<a href="#" ng-click="linkClick(\''+urls[i]+'\')">alink</a>');
+					$scope.tweet.Text = $scope.tweet.Text.replace(urls[i],'<a href="#" ng-click="linkClick(\''+urls[i]+'\')">link</a>');
 
 			// add user references
 

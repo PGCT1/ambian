@@ -9,9 +9,9 @@ connection-management(ng-switch='StreamCtrl.connectionStatus')
 		h4 Connecting...
 		img(src='images/loading.gif')
 
-	.connected(ng-switch-when='2', ng-class='{paused:StreamCtrl.paused}')
+	#notificationList.connected(ng-switch-when='2', ng-class='{paused:StreamCtrl.paused}')
 
-		.buffer(ng-show='StreamCtrl.paused')
+		.buffer
 
 		ambian-notification(ng-repeat='notification in StreamCtrl.notifications', notification='notification', on-link-click='StreamCtrl.linkClick')
 

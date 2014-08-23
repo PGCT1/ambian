@@ -4,7 +4,7 @@
 
 	var maxStreamItemCount = 10;
 
-	var ambianStream = angular.module('notification-stream',['ionic','stream','settings','ambian-notification','PriorityService']);
+	var ambianStream = angular.module('notification-stream',['ionic','duScroll','stream','settings','ambian-notification','PriorityService']);
 
 	ambianStream.directive('notificationStream',function(){
 
@@ -30,6 +30,8 @@
 
 			this.ignoreNextDisconnect = false;	// set to true when we close the connection manually
 
+			this.animating = false;
+
 			$scope.$on('entering-notification-stream',function(){
 				capture.connect();
 			});
@@ -40,8 +42,21 @@
 			};
 
 			this.play = function(){
-				capture.paused = false;
-				$scope.$broadcast('stream-play');
+
+				angular.element(document.getElementById('notificationList')).scrollTop(0, 300).then(function() {
+
+
+					capture.animating = true;
+
+					setTimeout(function(){
+
+						capture.animating = false;
+
+					},250);
+
+					capture.paused = false;
+					$scope.$broadcast('stream-play');
+				});
 			};
 
 			this.linkClick = function(url){
@@ -123,7 +138,7 @@
 
 			this.handleStreamTick = function(notification){
 
-				if(capture.paused == true){
+				if(capture.paused || capture.animating){
 					return false;
 				}
 

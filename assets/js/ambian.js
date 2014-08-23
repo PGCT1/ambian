@@ -51,30 +51,12 @@ function ambianDirectiveWithTemplate(templateName){
 
 		}
 
-		$scope.trustSrc = function(src) {
-	    return $sce.trustAsResourceUrl(src);
-	  }
-
-		this.dismissIframeBrowser = function(){
-			capture.iframeBrowserActive = false;
-			capture.iframeUrl = '';
-		}
-
-		this.showIframeBrowserModal = function(url){
-			capture.iframeBrowserActive = true;
-			capture.iframeUrl = url;
-		}
-
 		$scope.$on('stream-pause',function(){
 			capture.minimized = false;
 		});
 
 		$scope.$on('stream-play',function(){
 			capture.minimized = true;
-		});
-
-		$scope.$on('navigate-external-url',function(){
-			alert('asdf');
 		});
 
 		$scope.$on('external-link-click',function(event,url){
