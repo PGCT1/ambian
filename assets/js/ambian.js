@@ -56,11 +56,14 @@ function ambianDirectiveWithTemplate(templateName){
 			capture.minimized = true;
 		});
 
-		$scope.$on('external-link-click',function(event,url){
+		$scope.$on('external-link-click',function(event,url,callback){
 
-			if(ionic.Platform.isWebView())
-				window.open(url,'_blank');
-			else
+			if(ionic.Platform.isWebView()){
+
+				var newWindow = window.open(url,'_blank');
+
+				newWindow.addEventListener("exit", callback);
+			}else
 				window.open(url)	// running in a browser, so just open a new tab
 
 		})

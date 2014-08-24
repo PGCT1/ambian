@@ -30,9 +30,13 @@
 
       return function(pointer) {
 
-          if (pointer) document.addEventListener(eventKey, function(){
-            pointer.handler(vis());
-          });
+          if (pointer){
+
+            document.addEventListener(eventKey, function(){
+              pointer.handler(vis());
+            });
+
+          }
 
           return !document[stateKey];
       }

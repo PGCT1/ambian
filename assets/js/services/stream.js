@@ -68,7 +68,8 @@ var eConnectionStatus = {
 			};
 
 			socket.onerror = function(e){
-				alert(JSON.stringify(e));
+				socket.close();
+				console.error("STREAM ERROR: " + JSON.stringify(e));
 			};
 
 			socket.onclose = function(){
@@ -76,6 +77,10 @@ var eConnectionStatus = {
 			};
 
 		};
+
+		var disconnect = function(){
+			socket.close();
+		}
 
 		ActiveProcess(function(active){
 			if(active){
@@ -85,7 +90,10 @@ var eConnectionStatus = {
 			}
 		});
 
-		return connect;
+		return {
+			connect:connect,
+			disconnect:disconnect
+		};
 
 	}]);
 

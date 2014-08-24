@@ -51,7 +51,7 @@
 
 			this.play = function(){
 
-				angular.element(document.getElementById('notificationList')).scrollTop(0, 300).then(function() {
+				capture.scrollTop(300,function(){
 
 					capture.animating = true;
 
@@ -60,7 +60,7 @@
 						capture.animating = false;
 						capture.showNotification();
 
-					},250);
+					},350);
 
 					capture.paused = false;
 					$scope.$broadcast('stream-play');
@@ -68,8 +68,24 @@
 
 			};
 
+			this.scrollTop = function(scrollTime,f){
+				angular.element(document.getElementById('notificationList')).scrollTop(0, scrollTime).then(f);
+			}
+
 			this.linkClick = function(url){
-				$scope.$broadcast('external-link-click',url);
+
+				capture.ignoreNextDisconnect = true;
+
+				stream.disconnect();
+
+				$scope.$broadcast('external-link-click',url,function(){
+					capture.connect();
+				});
+
+				setTimeout(function(){
+					capture.scrollTop(0,function(){});
+				},800);
+
 			};
 
 			settings.setOnChange(function(){
@@ -111,7 +127,7 @@
 
 				}
 
-				stream(settings.getSettings(),function(connectionStatus){
+				stream.connect(settings.getSettings(),function(connectionStatus){
 
 					capture.connectionStatus = connectionStatus;
 

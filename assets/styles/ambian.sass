@@ -29,6 +29,7 @@ ambian-app
 			height:44px
 			z-index:10
 			opacity:1.0
+			-webkit-transform:translateY(0px)
 			transform:translateY(0px)
 			border:none
 
@@ -37,6 +38,7 @@ ambian-app
 			  transition:all ease-out 0.2s
 
 			&.ng-hide
+				-webkit-transform:translateY(-44px)
 				transform:translateY(-44px)
 				opacity:0.0
 
@@ -72,12 +74,14 @@ ambian-app
 			height:100%
 			padding:7px
 			padding-bottom:15px
+			-webkit-transform:translateY(-44px)
 			transform:translateY(-44px)
-			-webkit-transition:transform ease-out 0.2s
-			transition:transform ease-out 0.2s
+			-webkit-transition:all ease-out 0.2s
+			transition:all ease-out 0.2s
 
 			&.paused
 				overflow-y:auto
+				-webkit-transform:translateY(0px)
 				transform:translateY(0px)
 
 			.buffer
