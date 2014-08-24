@@ -18,18 +18,31 @@ var eAvailableStreams = {
 		speed:2500
 	};
 
+	var capture = {
+		onChange:function(){}
+	};
+
 	settings.factory('settings',function(){
 
 		if(!localStorage.getItem("ambian-settings")){
 			localStorage.setItem("ambian-settings",JSON.stringify(defaultSettings));
 		}
 
-		return function(settings){
+		return new function(){
 
-			if(settings){
-				localStorage.setItem("ambian-settings",JSON.stringify(settings));
-			}else{
+			this.setOnChange = function(f){
+				capture.onChange = f;
+			}
+
+			this.getSettings = function(){
 				return JSON.parse(localStorage.getItem("ambian-settings"));
+			}
+
+			this.setSettings = function(settings){
+
+				localStorage.setItem("ambian-settings",JSON.stringify(settings));
+
+				capture.onChange();
 			}
 
 		}

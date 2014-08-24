@@ -2,6 +2,12 @@
 
 (function(){
 
+	var eStreamStatus = {
+		disconnected:0,
+		connectingToNewStream:1,
+		streaming:2
+	};
+
 	var maxStreamItemCount = 10;
 
 	var ambianStream = angular.module('notification-stream',['ionic','duScroll','stream','settings','ambian-notification','PriorityService']);
@@ -18,11 +24,13 @@
 
 			this.notificationLimit = maxStreamItemCount;
 
-			this.speedLimit = 500;	// min delay in ms between posting notifications
+			this.speedLimit = 500;	// min delay in ms between posting notifications; overridden by settings
 
 			this.notifications = [];
 
 			this.connectionStatus = eConnectionStatus.connecting;
+
+			this.streamStatus = eStreamStatus.connectingToNewStream;
 
 			this.lastPost = 0;	// timestamp of most recent notification added
 
@@ -45,27 +53,40 @@
 
 				angular.element(document.getElementById('notificationList')).scrollTop(0, 300).then(function() {
 
-
 					capture.animating = true;
 
 					setTimeout(function(){
 
 						capture.animating = false;
+						capture.showNotification();
 
 					},250);
 
 					capture.paused = false;
 					$scope.$broadcast('stream-play');
 				});
+
 			};
 
 			this.linkClick = function(url){
 				$scope.$broadcast('external-link-click',url);
 			};
 
+			settings.setOnChange(function(){
+
+				capture.paused = false;
+
+				capture.notifications = [];
+				PriorityService.clearNotifications();
+
+				capture.ignoreNextDisconnect = true;
+				capture.streamStatus = eStreamStatus.connectingToNewStream;
+
+			});
+
 			this.connect = function(force){
 
-				var settingsObj = settings();
+				var settingsObj = settings.getSettings();
 
 				var speed = settingsObj.speed;
 
@@ -80,12 +101,6 @@
 						return;
 				}
 
-				if(!(capture.activeSettings == settingsString
-					&& capture.connectionStatus == eConnectionStatus.connected)){
-					capture.notifications = [];
-					PriorityService.clearNotifications();
-				}
-
 				capture.speedLimit = speed;
 
 				capture.activeSettings = settingsString;
@@ -96,14 +111,17 @@
 
 				}
 
-				stream(settings(),function(connectionStatus){
-
-					if(connectionStatus == eConnectionStatus.disconnected && capture.ignoreNextDisconnect == true){
-						capture.ignoreNextDisconnect = false;
-						return;
-					}
+				stream(settings.getSettings(),function(connectionStatus){
 
 					capture.connectionStatus = connectionStatus;
+
+					if(connectionStatus != eConnectionStatus.connected && capture.ignoreNextDisconnect){
+						if(connectionStatus == eConnectionStatus.disconnected)
+							capture.ignoreNextDisconnect = false;
+						return;
+					}else{
+						capture.streamStatus = eStreamStatus.streaming;
+					}
 
 					// annoying that this part has to be here: basically, we need to
 					// call $scope.$apply because otherwise, after connecting, the
@@ -138,15 +156,20 @@
 
 			this.handleStreamTick = function(notification){
 
-				if(capture.paused || capture.animating){
+				PriorityService.addNotification(notification);
+
+				capture.showNotification();
+			}
+
+			this.showNotification = function(){
+
+				if(capture.paused || capture.animating || PriorityService.availableNotificationCount() == 0){
 					return false;
 				}
 
-				var notificationToAdd;
-
 				var now = (new Date()).getTime();
 
-				PriorityService.addNotification(notification);
+				var notificationToAdd;
 
 				if(now - capture.lastPost < capture.speedLimit){
 					return;
@@ -162,7 +185,6 @@
 				}
 
 				$scope.$apply();
-
 			}
 
 			ionic.Platform.ready(function(){

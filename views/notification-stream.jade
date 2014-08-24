@@ -1,21 +1,22 @@
 
-connection-management(ng-switch='StreamCtrl.connectionStatus')
+connection-management(ng-switch='StreamCtrl.streamStatus')
 
 	.disconnected(ng-switch-when='0')
 		h4 Unable to connect to server. Please check your internet connection and try again.
 		button.connect(ng-click='StreamCtrl.connect(true)') TRY AGAIN
 
-	.connecting(ng-switch-when='1')
+
+	.connectingToNewStream(ng-switch-when='1')
 		h4 Connecting...
 		img(src='images/loading.gif')
 
-	#notificationList.connected(ng-switch-when='2', ng-class='{paused:StreamCtrl.paused}')
+
+	#notificationList.streaming(ng-switch-when='2', ng-class='{paused:StreamCtrl.paused}')
 
 		.buffer
 
 		ambian-notification(ng-repeat='notification in StreamCtrl.notifications', notification='notification', on-link-click='StreamCtrl.linkClick')
 
-
-	button.streamControl.pause(ng-show='StreamCtrl.connectionStatus == 2 && StreamCtrl.paused == false', ng-click='StreamCtrl.pause()')
-	button.streamControl.play.ng-hide(ng-show='StreamCtrl.connectionStatus == 2 && StreamCtrl.paused == true', ng-click='StreamCtrl.play()')
+	button.streamControl.pause(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == false', ng-click='StreamCtrl.pause()')
+	button.streamControl.play.ng-hide(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == true', ng-click='StreamCtrl.play()')
 		i.icon.ion-play

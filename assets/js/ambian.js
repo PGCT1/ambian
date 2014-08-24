@@ -36,9 +36,6 @@ function ambianDirectiveWithTemplate(templateName){
 
 		this.minimized = true;
 
-		this.iframeBrowserActive = false;
-		this.iframeHtml = '';
-
 		this.Navigate = function(index){
 
 			if(capture.activeIndex != index){

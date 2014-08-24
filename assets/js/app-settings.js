@@ -15,10 +15,6 @@
 				capture.loadSettings();
 			});
 
-			$scope.$on('exiting-app-settings',function(){
-				capture.saveSettings();
-			});
-
 			this.subscriptions = [
 				{
 					id:1,
@@ -70,13 +66,13 @@
 				settingsObj.Sources.SocialMedia = capture.sources[1].enabled;
 				settingsObj.Sources.Aggregate = capture.sources[2].enabled;
 
-				settings(settingsObj);
+				settings.setSettings(settingsObj);
 
 			};
 
 			this.loadSettings = function(){
 
-				var settingsObj = settings();
+				var settingsObj = settings.getSettings();
 
 				for(var i=0;i<capture.subscriptions.length;++i){
 

@@ -44,7 +44,7 @@
 
         if(!notification.Content.Verified)
           rating = rating * 0.75
-        
+
       }
 
       return rating * Math.random();
@@ -123,12 +123,17 @@
       }
     }
 
+    function availableNotificationCount(){
+      return stampedNotifications.length;
+    }
+
 
     return new function(){
 
       this.addNotification = addNotification;
       this.popNotification = popNotification;
       this.clearNotifications = clearNotifications;
+      this.availableNotificationCount = availableNotificationCount;
 
     };
 
