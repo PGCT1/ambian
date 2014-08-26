@@ -17,6 +17,14 @@ connection-management(ng-switch='StreamCtrl.streamStatus')
 
 		ambian-notification(ng-repeat='notification in StreamCtrl.notifications', notification='notification', on-link-click='StreamCtrl.linkClick')
 
+		.badSettingsMessage(ng-show='StreamCtrl.numberOfActiveStreams == 0')
+			| You have no active streams set. In order to see any data, you
+			| need to turn on at least one stream in the settings tab.
+
+		.badSettingsMessage(ng-show='StreamCtrl.numberOfActiveSources == 0')
+			| You have no active sources set. In order to see any data, you
+			| need to turn on at least one source in the settings tab.
+
 	button.streamControl.pause(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == false', ng-click='StreamCtrl.pause()')
 	button.streamControl.play.ng-hide(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == true', ng-click='StreamCtrl.play()')
 		i.icon.ion-play

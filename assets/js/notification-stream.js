@@ -40,6 +40,10 @@
 
 			this.animating = false;
 
+			this.numberOfActiveStreams = 0;
+
+			this.numberOfActiveSources = 0;
+
 			$scope.$on('entering-notification-stream',function(){
 				capture.connect();
 			});
@@ -98,6 +102,7 @@
 				capture.paused = false;
 
 				capture.notifications = [];
+				stream.disconnect();
 				PriorityService.clearNotifications();
 
 				capture.ignoreNextDisconnect = true;
@@ -108,6 +113,16 @@
 			this.connect = function(force){
 
 				var settingsObj = settings.getSettings();
+
+				capture.numberOfActiveStreams = settingsObj.AmbianStreamIds.length;
+
+				capture.numberOfActiveSources = 0;
+
+				var sources = Object.keys(settingsObj.Sources);
+
+				for(var i=0;i<sources.length;++i)
+					if(settingsObj.Sources[sources[i]])
+						++capture.numberOfActiveSources;
 
 				var speed = settingsObj.speed;
 
