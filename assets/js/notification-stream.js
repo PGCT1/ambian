@@ -69,7 +69,12 @@
 			};
 
 			this.scrollTop = function(scrollTime,f){
-				angular.element(document.getElementById('notificationList')).scrollTop(0, scrollTime).then(f);
+				var t = angular.element(document.getElementById('notificationList')).scrollTop(0, scrollTime);
+
+				if(t)
+					t.then(f);
+				else
+					f()
 			}
 
 			this.linkClick = function(url){
@@ -132,11 +137,11 @@
 					capture.connectionStatus = connectionStatus;
 
 					if(connectionStatus != eConnectionStatus.connected && capture.ignoreNextDisconnect){
-						if(connectionStatus == eConnectionStatus.disconnected)
+						if(connectionStatus == eConnectionStatus.connecting)
 							capture.ignoreNextDisconnect = false;
 						return;
 					}else{
-						capture.streamStatus = eStreamStatus.streaming;
+						capture.streamStatus = connectionStatus;
 					}
 
 					// annoying that this part has to be here: basically, we need to

@@ -3,7 +3,8 @@
 var eConnectionStatus = {
 	disconnected:0,
 	connecting:1,
-	connected:2
+	connected:2,
+	connectionError:3
 };
 
 (function(){
@@ -68,6 +69,7 @@ var eConnectionStatus = {
 			};
 
 			socket.onerror = function(e){
+				capture.statusCallback(eConnectionStatus.connectionError);
 				socket.close();
 				console.error("STREAM ERROR: " + JSON.stringify(e));
 			};
