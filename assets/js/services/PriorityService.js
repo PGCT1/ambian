@@ -77,7 +77,7 @@
 
       var now = (new Date()).getTime();
 
-      while(now - stampedNotifications[i].timestamp > cStaleTime){
+      while(i < stampedNotifications.length && now - stampedNotifications[i].timestamp > cStaleTime){
         stampedNotifications.shift();
         ++i;
       }

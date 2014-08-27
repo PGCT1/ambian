@@ -14,28 +14,34 @@
 
       this.articles = [];
 
-      streams = settings.getSettings().AmbianStreamIds;
+      this.getStreamData = function(){
 
-      for(var i=0;i<streams.length;++i)
-        $http.get(sourceUrl + streams[i]).success(function(articles){
+        async.each(settings.getSettings().AmbianStreamIds, function(streamId, callback) {
 
-          var sources = Object.keys(articles);
+          $http.get(sourceUrl + streamId).success(function(sourceArticleMap){
 
-          for(var i=0;i<sources.length;++i){
+            _.map(sourceArticleMap,function(article,source){
 
-            var article = articles[sources[i]];
+              article.SourceName = source;
 
-            article.SourceName = sources[i];
+              article.SourceLogo = 'images/source-icons/' + article.SourceName.replace(/\s/gm, '') + '.png';
 
-            article.SourceLogo = 'images/source-icons/' + article.SourceName.replace(/\s/gm, '') + '.png';
+              capture.articles.push(article);
 
-            capture.articles.push(article);
+            });
 
-          }
+            callback();
 
-        }).error(function(e){
-          capture.error = e;
-        })
+          }).error(callback)
+
+        }, function(err) {
+          if(err)
+            capture.error = err;
+        });
+
+      }
+
+      this.getStreamData();
 
       this.close = function(){
         $scope.closeWindow();
