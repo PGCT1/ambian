@@ -1,0 +1,14 @@
+
+.topbar
+  h1 Quick Overview
+  button.right(ng-click='NewsSummaryCtrl.close()') Proceed
+
+ol.articles
+  li.article(ng-repeat='article in NewsSummaryCtrl.articles', ng-click='NewsSummaryCtrl.linkClick(article.Guid)')
+    img.sourceLogo(ng-src='{{article.SourceLogo}}')
+    .text
+      .title {{article.Title}}
+      .sourceName {{article.SourceName}}
+
+.error.ng-hide(ng-show='NewsSummaryCtrl.error')
+  | Unable to connect to server.

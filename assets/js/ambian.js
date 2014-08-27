@@ -20,7 +20,7 @@ function ambianDirectiveWithTemplate(templateName){
 
 (function(){
 
-	var ambian = angular.module('ambian',['ionic','ngSanitize','onTap','notification-stream','app-store','app-settings']);
+	var ambian = angular.module('ambian',['ionic','ngSanitize','onTap','settings','notification-stream','app-store','app-settings','news-summary']);
 
 	ambian.directive('ambianApp',function(){
 
@@ -28,7 +28,7 @@ function ambianDirectiveWithTemplate(templateName){
 
 	});
 
-	ambian.controller('MainNavigationController',function($scope,$sce){
+	ambian.controller('MainNavigationController',function($scope,$sce,settings){
 
 		var capture = this;
 
@@ -57,6 +57,10 @@ function ambianDirectiveWithTemplate(templateName){
 		});
 
 		$scope.$on('external-link-click',function(event,url,callback){
+			capture.onLinkClick(url,callback);
+		})
+
+		capture.onLinkClick = function(url,callback){
 
 			if(ionic.Platform.isWebView()){
 
@@ -65,12 +69,25 @@ function ambianDirectiveWithTemplate(templateName){
 				newWindow.addEventListener("exit", callback);
 			}else
 				window.open(url)	// running in a browser, so just open a new tab
-
-		})
+		}
 
 		this.activeIndex = 0;
 
+		this.showNewsSummary = false;
+
+		this.closeNewsSummary = function(){
+			capture.showNewsSummary = false;
+		}
+
 		this.iOS = ionic.Platform.isIOS();
+
+		ionic.Platform.ready(function(){
+
+			if(settings.getSettings().AmbianStreamIds.length > 0)
+				setTimeout(function(){capture.showNewsSummary = true;},500);
+
+		});
+
 	});
 
 	ambian.run(function($ionicPlatform){

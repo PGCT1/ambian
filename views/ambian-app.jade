@@ -14,8 +14,10 @@ nav(ng-controller='MainNavigationController as MainNavigationCtrl')
 
 	.stabalizer
 
-	notification-stream(ng-class='{active:MainNavigationCtrl.activeIndex == 0}')
+	notification-stream(ng-class='{active:MainNavigationCtrl.activeIndex == 0,blur:MainNavigationCtrl.showNewsSummary}')
 
 	app-store(ng-class='{active:MainNavigationCtrl.activeIndex == 1}')
 
 	app-settings(ng-class='{active:MainNavigationCtrl.activeIndex == 2}')
+
+	news-summary.ng-hide(ng-show='MainNavigationCtrl.showNewsSummary', close-button-handler='MainNavigationCtrl.closeNewsSummary', on-link-click='MainNavigationCtrl.onLinkClick')

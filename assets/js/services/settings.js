@@ -15,7 +15,10 @@ var eAvailableStreams = {
 			Corporate:true,
 			SocialMedia:true
 		},
-		speed:2500
+		speed:2500,
+		lastSeenTimes:{
+			1:0	// last seen on WorldNews -- unix timestamp 0
+		}
 	};
 
 	var capture = {

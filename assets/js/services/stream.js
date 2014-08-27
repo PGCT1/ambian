@@ -41,9 +41,7 @@ var eConnectionStatus = {
 			if(notificationCallback){
 				capture.notificationCallback = notificationCallback;
 			}
-
-			//
-
+			
 			capture.statusCallback(eConnectionStatus.connecting);
 
 			socket = new WebSocket(SOURCE_STREAM);
