@@ -1,11 +1,11 @@
 
 a(href='#', ng-click='linkClick("{{article.Link}}")', target='_blank')
-	.leftColumn
-		.sourceLogo(ng-style='{"background-image":"url({{article.sourceLogo}})"}')
+	.sourceLogo(ng-style='{"background-image":"url({{article.sourceLogo}})"}')
 
-	h1.title {{article.Content.Title}}
+	.texts
+		h1.title {{article.Content.Title}}
 
-	h2.sourceName {{article.Source}}
-		img.verified(src='images/verified.png')
+		h2.sourceName {{article.Source}}
+			img.verified(src='images/verified.png')
 
-	p.text {{article.Content.Description}}
+		p.text {{article.Content.Description}}

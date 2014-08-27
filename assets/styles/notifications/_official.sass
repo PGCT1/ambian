@@ -2,51 +2,45 @@
 notification-official
 	display:block
 
-	.leftColumn
-		height: 137px
-		width: 50px
+	.sourceLogo
 		float: left
+		height: 50px
+		width: 50px
 		margin-right: 10px
+		border-radius: 4px
+		background-size: contain
+		background-repeat: no-repeat
 
-		.sourceLogo
-			height: 50px
-			width: 50px
-			border-radius: 4px
-			background-size: contain
-			background-repeat: no-repeat
-
-	.title
-		font-size:22px
-		line-height: 27px
+	.texts
 		overflow:hidden
+		
+		.title
+			font-size:22px
+			line-height: 27px
+			overflow:hidden
 
-	.sourceName
-		color:$primary-highlight
-		white-space:nowrap
-		font-size:15px
-		margin:5px 0px
-		overflow:hidden
+		.sourceName
+			color:$primary-highlight
+			white-space:nowrap
+			font-size:15px
+			margin:5px 0px
+			overflow:hidden
 
-		img.verified
-			vertical-align:bottom
+			img.verified
+				vertical-align:bottom
 
-	.text
-		overflow:hidden
-		color: #666
-		font-size: 16px
+		.text
+			overflow:hidden
+			color: #666
+			font-size: 16px
 
 @media(max-width:550px)
 	notification-official
-		.leftColumn
-			margin-right:5px
-			height:100px
+		.sourceLogo
+			height:25px
 			width:25px
+			border-radius:2px
 
-			.sourceLogo
-				height:25px
-				width:25px
-				border-radius:2px
-
-		.title
+		.texts .title
 			font-size:18px
 			line-height:22px
