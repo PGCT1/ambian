@@ -4,6 +4,17 @@
 
   var newsSummary = angular.module('news-summary',['settings','navigation-bar']);
 
+  function extractUrl(article){
+
+    if(article.Guid && article.Guid.indexOf(".") != -1)
+      return article.Guid
+    else if(article.Links && article.Links[0] && article.Links[0].Href)
+      return article.Links[0].Href
+    else
+      return false
+
+  }
+
   newsSummary.directive('newsSummary',function(){
 
     var directive = ambianDirectiveWithTemplate('news-summary');
@@ -26,7 +37,12 @@
 
               article.SourceLogo = 'images/source-icons/' + article.SourceName.replace(/\s/gm, '') + '.png';
 
-              capture.articles.push(article);
+              var url = extractUrl (article);
+
+              if(url){
+                article.Url = extractUrl(article);
+                capture.articles.push(article);
+              }
 
             });
 

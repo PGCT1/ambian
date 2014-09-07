@@ -78,6 +78,9 @@
 
 				$scope.$broadcast('open-settings',function(didMakeChanges){
 
+					console.log("made changes:");
+					console.log(didMakeChanges);
+
 					if(!didMakeChanges)return
 
 					capture.streamStatus = eStreamStatus.connectingToNewStream;
@@ -126,6 +129,8 @@
 			};
 
 			this.connect = function(force){
+
+				console.log("ping!")
 
 				var settingsObj = settings.getSettings();
 
