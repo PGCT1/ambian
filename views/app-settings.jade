@@ -1,21 +1,23 @@
 
+navigation-bar(header-text='"Settings"', right-button-hook='AppSettingsCtrl.saveAndClose', right-button-text='"Save"', left-button-hook='AppSettingsCtrl.close', left-button-text='"Cancel"')
+
 .header Stream
 
 .item.item-checkbox(ng-repeat='feed in AppSettingsCtrl.subscriptions')
 	label.checkbox
-		input(type='checkbox', ng-model='feed.active', ng-change='AppSettingsCtrl.saveSettings()')
+		input(type='checkbox', ng-model='feed.active')
 	| {{feed.name}}
 
 .header Speed
 
 .item.range.range-positive
 	i.icon.ion-ios7-bolt-outline
-	input(type='range', name='speed', min='-20000', max='-500', ng-model='AppSettingsCtrl.speed', ng-change='AppSettingsCtrl.saveSettings()')
+	input(type='range', name='speed', min='-20000', max='-500', ng-model='AppSettingsCtrl.speed')
 	i.icon.ion-ios7-bolt
 
 .header Sources
 
 .item.item-checkbox(ng-repeat='source in AppSettingsCtrl.sources')
 	label.checkbox
-		input(type='checkbox', ng-model='source.enabled', ng-change='AppSettingsCtrl.saveSettings()')
+		input(type='checkbox', ng-model='source.enabled')
 	| {{source.name}}

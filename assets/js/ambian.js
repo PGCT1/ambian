@@ -48,17 +48,13 @@ function ambianDirectiveWithTemplate(templateName){
 
 		}
 
-		$scope.$on('stream-pause',function(){
-			capture.minimized = false;
-		});
-
-		$scope.$on('stream-play',function(){
-			capture.minimized = true;
-		});
-
 		$scope.$on('external-link-click',function(event,url,callback){
 			capture.onLinkClick(url,callback);
-		})
+		});
+
+		$scope.$on('open-settings',function(event,callback){
+			capture.openSettings(callback);
+		});
 
 		capture.onLinkClick = function(url,callback){
 
@@ -71,12 +67,37 @@ function ambianDirectiveWithTemplate(templateName){
 				window.open(url)	// running in a browser, so just open a new tab
 		}
 
-		this.activeIndex = 0;
+		this.showSettings = false;
 
 		this.showNewsSummary = false;
 
+		this.closeSettingsHook = function(){}
+		this.openSettingsHook = function(){}
+
 		this.closeNewsSummary = function(){
 			capture.showNewsSummary = false;
+		}
+
+		this.setOpenSettingsHook = function(callback){
+			capture.openSettingsHook = callback;
+		}
+
+		this.openSettings = function(callback){
+
+			capture.showSettings = true;
+
+			capture.openSettingsHook();
+
+			if(callback)
+				capture.closeSettingsHook = callback;
+			else
+				capture.closeSettingsHook = function(){}
+
+		}
+
+		this.closeSettings = function(){
+			capture.showSettings = false;
+			capture.closeSettingsHook();
 		}
 
 		this.iOS = ionic.Platform.isIOS();

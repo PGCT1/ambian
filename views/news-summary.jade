@@ -1,7 +1,5 @@
 
-.topbar
-  h1 Quick Overview
-  button.right(ng-click='NewsSummaryCtrl.close()') Proceed
+navigation-bar(header-text='"Quick Overview"', right-button-hook='NewsSummaryCtrl.close', right-button-text='"Proceed"')
 
 ol.articles
   li.article(ng-repeat='article in NewsSummaryCtrl.articles', ng-click='NewsSummaryCtrl.linkClick(article.Guid)')

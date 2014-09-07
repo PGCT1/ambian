@@ -2,7 +2,7 @@
 
   var sourceUrl = 'http://ambianmonitordev-projectgemini.rhcloud.com/currentTopHeadlines/';
 
-  var newsSummary = angular.module('news-summary',['settings']);
+  var newsSummary = angular.module('news-summary',['settings','navigation-bar']);
 
   newsSummary.directive('newsSummary',function(){
 

@@ -1,0 +1,35 @@
+navigation-bar
+  display:block
+  position:relative
+  height:44px
+  background-color:rgba(63, 128, 237, 0.94)
+  padding-top:9px
+  z-index: 2
+
+  h1
+    color:white
+    font-size:22px
+    margin:0px
+    text-align:center
+
+    @media(max-width:550px)
+      font-size:20px
+
+  button.right,button.left
+    font-size: 18px
+    position: absolute
+    top: 8px
+    color: white
+    background: none
+    border: none
+    font-family: 'Open Sans', sans-serif
+    transition:color linear 0.1s
+
+    &:hover,&:active
+      color:#ddf
+
+  button.right
+    right: 5px
+
+  button.left
+    left: 5px

@@ -36,6 +36,8 @@
 
 			this.activeSettings = '';
 
+			this.settingsWindowOpen = false;
+
 			this.ignoreNextDisconnect = false;	// set to true when we close the connection manually
 
 			this.animating = false;
@@ -50,7 +52,6 @@
 
 			this.pause = function(){
 				capture.paused = true;
-				$scope.$broadcast('stream-pause');
 			};
 
 			this.play = function(){
@@ -67,12 +68,39 @@
 					},350);
 
 					capture.paused = false;
-					$scope.$broadcast('stream-play');
 				});
 
 			};
 
+			this.openSettings = function(){
+
+				capture.settingsWindowOpen = true;
+
+				$scope.$broadcast('open-settings',function(didMakeChanges){
+
+					if(!didMakeChanges)return
+
+					capture.streamStatus = eStreamStatus.connectingToNewStream;
+
+					setTimeout(function(){
+
+						capture.notifications = [];
+
+						PriorityService.clearNotifications();
+
+						capture.ignoreNextDisconnect = true;
+						capture.paused = false;
+
+						capture.settingsWindowOpen = false;
+						stream.disconnect();
+					},0);
+
+					setTimeout(capture.connect,300);
+				});
+			}
+
 			this.scrollTop = function(scrollTime,f){
+
 				var t = angular.element(document.getElementById('notificationList')).scrollTop(0, scrollTime);
 
 				if(t)
@@ -96,19 +124,6 @@
 				},800);
 
 			};
-
-			settings.setOnChange(function(){
-
-				capture.paused = false;
-
-				capture.notifications = [];
-				stream.disconnect();
-				PriorityService.clearNotifications();
-
-				capture.ignoreNextDisconnect = true;
-				capture.streamStatus = eStreamStatus.connectingToNewStream;
-
-			});
 
 			this.connect = function(force){
 

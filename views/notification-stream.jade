@@ -13,6 +13,7 @@ connection-management(ng-switch='StreamCtrl.streamStatus')
 
 	#notificationList.streaming(ng-switch-when='2', ng-class='{paused:StreamCtrl.paused}')
 
+		// this 1px buffer gives a huge performance boost, for god knows what reason
 		.buffer
 
 		ambian-notification(ng-repeat='notification in StreamCtrl.notifications', notification='notification', on-link-click='StreamCtrl.linkClick')
@@ -26,5 +27,9 @@ connection-management(ng-switch='StreamCtrl.streamStatus')
 			| need to turn on at least one source in the settings tab.
 
 	button.streamControl.pause(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == false', ng-click='StreamCtrl.pause()')
+
+	button.streamControl.settings.ng-hide(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == true', ng-click='StreamCtrl.openSettings()')
+		i.icon.ion-ios7-gear
+
 	button.streamControl.play.ng-hide(ng-show='StreamCtrl.streamStatus == 2 && StreamCtrl.paused == true', ng-click='StreamCtrl.play()')
 		i.icon.ion-play

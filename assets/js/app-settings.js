@@ -11,7 +11,7 @@
 
 			var capture = this;
 
-			$scope.$on('entering-app-settings',function(){
+			$scope.initFunctionSetter(function(){
 				capture.loadSettings();
 			});
 
@@ -45,7 +45,7 @@
 				}
 			];
 
-			this.saveSettings = function(){
+			this.saveAndClose = function(){
 
 				var settingsObj = {
 					AmbianStreamIds:[],
@@ -68,7 +68,12 @@
 
 				settings.setSettings(settingsObj);
 
+				capture.close(true);
 			};
+
+			this.close = function(didMakeChanges){
+				$scope.closeButtonHandler(didMakeChanges);
+			}
 
 			this.loadSettings = function(){
 
@@ -95,6 +100,11 @@
 		}];
 
 		directive.controllerAs = 'AppSettingsCtrl';
+
+		directive.scope = {
+			closeButtonHandler: '=closeButtonHandler',
+			initFunctionSetter: '=initFunctionSetter'
+		};
 
 		return directive;
 

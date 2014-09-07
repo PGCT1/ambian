@@ -11,6 +11,29 @@
     var stampedNotifications = [];
     var recentHistory = [];
 
+    function distanceSinceLastPostBySameUser(notification){
+
+      var userId = notification.Content.UserId;
+
+      var found = false;
+      var position = 0;
+
+      for(var i=0;i<recentHistory.length;++i){
+
+        if(recentHistory[i].Type == 1 && recentHistory[i].Content.UserId == userId){
+          found = true;
+          position = i;
+          break;
+        }
+
+      }
+
+      if(found)
+        return position;
+      else
+        return 99999
+    }
+
     function rate(notification){
 
       var rating;
@@ -42,8 +65,17 @@
 
         // tweet
 
+        // penalize non-verified tweets
+
         if(!notification.Content.Verified)
-          rating = rating * 0.75
+          rating = rating * 0.75;
+
+        // penalize repeated tweets by the same author
+
+        var d = distanceSinceLastPostBySameUser(notification);
+
+        if(d < 20)
+          rating = d/20 * rating;
 
       }
 

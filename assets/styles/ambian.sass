@@ -5,6 +5,7 @@
 @import "app-store"
 @import "news-summary"
 @import "notifications"
+@import "navigation-bar"
 
 ambian-app
 	display:block
@@ -19,49 +20,14 @@ ambian-app
 	nav
 		height:100%
 
-		.controls
-			position:absolute
-			top:0px
-			left:0px
-			width:100%
-			background:rgba(63,128,237,0.94)
-			text-align:center
-			font-size:32px
-			height:44px
-			z-index:10
-			opacity:1.0
-			-webkit-transform:translateY(0px)
-			transform:translateY(0px)
-			border:none
-
-			&.ng-hide-add,&.ng-hide-remove
-			  -webkit-transition:all ease-out 0.2s
-			  transition:all ease-out 0.2s
-
-			&.ng-hide
-				-webkit-transform:translateY(-44px)
-				transform:translateY(-44px)
-				opacity:0.0
-
-			.ios-status-offset
-				height:22px
-
-			button
-				display:inline-block
-				background:none
-				border:none
-				padding:0px 8%
-				color:white
-				font-size:32px
-				height:44px
-
-				@media(max-width:550px)
-					padding:0px 10%
-
 	notification-stream
-		display:none
+		display:block
 		font-family:'Open Sans',sans-serif
 		height:100%
+
+		connection-management
+			display:block
+			height:100%
 
 		h4
 			display:block
@@ -75,18 +41,9 @@ ambian-app
 			height:100%
 			padding:7px
 			padding-bottom:15px
-			-webkit-transform:translateY(-44px)
-			transform:translateY(-44px)
-			-webkit-transition:all ease-out 0.2s
-			transition:all ease-out 0.2s
 
 			&.paused
 				overflow-y:auto
-				-webkit-transform:translateY(0px)
-				transform:translateY(0px)
-
-			.buffer
-				height:44px
 
 			.badSettingsMessage
 				font-size: 22px
@@ -115,7 +72,8 @@ ambian-app
 					background-color:lighten($primary-highlight,4%)
 
 		.connectingToNewStream
-			margin-top:50px
+			padding-top:50px
+			height:100%
 
 			h4
 				text-align:center
@@ -136,12 +94,12 @@ ambian-app
 			border-radius: 30px
 
 			&:hover
+				-webkit-transition:background-color linear 0.2s
+				transition:background-color linear 0.2s
 				background-color:rgba(242,242,242,0.9)
 
-			&.play
+			&.play,&.settings
 				box-shadow:gray 0px 0px 4px
-				padding: 3px 14px 3px 14px
-				right:16px
 				opacity:1.0
 
 				&.ng-hide-add,&.ng-hide-remove
@@ -154,25 +112,21 @@ ambian-app
 				i
 					margin-right:-4px
 
+			&.play
+				right:16px
+				padding: 3px 14px 3px 14px
+
+			&.settings
+				left:16px
+				padding: 4px 14px 4px 11px
+
 			&.pause
 				border-radius:0px
-				padding: 3px 16px 3px 15px
 				width: 100%
 				height: 100%
 				background-color: transparent
 
-				&:active
-					background-color:rgba(0,0,0,0.02)
-
-	app-store
-		display:none
-		margin-top:44px
-
-	app-settings
-		display:none
-		margin-top:44px
-
-	news-summary
+	news-summary, app-settings
 		position: absolute
 		top: 0px
 		left: 0px
@@ -206,9 +160,9 @@ ambian-app
 
 // components
 
-.stabalizer
+.buffer
+	display:block
 	height:1px
-	width:100%
 
 .item
 	border-color:transparent
