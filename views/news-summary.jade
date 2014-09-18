@@ -2,7 +2,7 @@
 navigation-bar(header-text='"Quick Overview"', right-button-hook='NewsSummaryCtrl.close', right-button-text='"Proceed"')
 
 ol.articles
-  li.article(ng-repeat='article in NewsSummaryCtrl.articles', ng-click='NewsSummaryCtrl.linkClick(article.Guid)')
+  li.article(ng-repeat='article in NewsSummaryCtrl.articles', ng-click='NewsSummaryCtrl.linkClick(article.Url)')
     img.sourceLogo(ng-src='{{article.SourceLogo}}')
     .text
       .title {{article.Title}}

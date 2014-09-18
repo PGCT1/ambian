@@ -95,9 +95,9 @@ function ambianDirectiveWithTemplate(templateName){
 
 		}
 
-		this.closeSettings = function(){
+		this.closeSettings = function(changed){
 			capture.showSettings = false;
-			capture.closeSettingsHook();
+			capture.closeSettingsHook(changed);
 		}
 
 		this.iOS = ionic.Platform.isIOS();
